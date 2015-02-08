@@ -138,7 +138,12 @@
             </div>
           </div>
         <!-- </div>    -->
-      </div><!-- row-fluid --> 
+      </div><!-- row-fluid -->
+      <div class="row-fluid">
+        <div class="col-md-1 col-md-offset-10">
+          <a class="btn btn-primary" href="">Go Back</a>
+        </div>
+      </div> <!-- row-fluid -->
     </div><!-- container-fluid -->
   </body>
 </html>
