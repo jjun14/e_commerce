@@ -104,9 +104,6 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Dojo eCommerce</a>
         </div>
@@ -135,7 +132,7 @@
           </form>
         </div>
         <div class="col-md-2 col-md-offset-6 add_new">
-          <buttn class="btn btn-primary" data-toggle="modal" data-target="#edit_modal" href="">Add new product</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#edit_modal" href="">Add new product</button>
         </div>
       </div>
     <!-- End Search and Filter Form -->
@@ -168,7 +165,6 @@
                   </form>
                 </td>
               </tr>
-              
               <tr>
                 <td><div class="picture"></div></td>
                 <td>2</td>
@@ -242,7 +238,6 @@
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              </li>
               <li><a href="#">1</a></li>
               <li><a href="#">2</a></li>
               <li><a href="#">3</a></li>
@@ -259,8 +254,7 @@
         <!-- pagination end -->
       </div><!-- .row-fluid -->
     </div><!-- container-fluid -->
-
-    <!-- MODAL -->
+    <!-- Beginning of Modal -->
     <div class="container-fluid modal fade" id="edit_modal">
       <div class="row-fluid">
         <div class="wrapper col-md-4 col-md-offset-4 modal-content">
@@ -271,7 +265,7 @@
             <div class="col-md-1">
               <button class="close" data-dismiss="modal">x</button>
             </div>
-          </div><!-- row -->
+          </div><!-- row-fluid -->
           <div class="row-fluid">
             <div class="col-md-6 col-md-offset-3">
               <form id="editProductForm" action="" method="post">
@@ -279,7 +273,6 @@
                   <label for="name">Name: </label>
                   <input type="text" class="form-control" name="name" id="name" value="Hat">
                 </div>
-                
                 <div class="form-group">
                   <label for="description">Description: </label>
                   <input type="text" class="form-control" name="description" value="Great Fit, Cool new colors">
@@ -363,10 +356,10 @@
                 </div>
               </form>
             </div><!-- div.col-md-8 col-md-offset-2 -->
-          </div><!-- row -->
+          </div><!-- row.fluid -->
         </div><!-- wrapper -->
-      </div><!-- row -->
-    </div><!-- container-fluid -->
-    <!-- End MODAL -->
+      </div><!-- row.fluid -->
+    </div><!-- .container-fluid modal -->
+    <!-- End of Model -->
   </body>
 </html>
