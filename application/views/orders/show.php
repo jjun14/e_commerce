@@ -71,11 +71,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">Order</a></li>
-            <li><a href="#">Products</a></li>
+            <li><a href="/dashboards/orders">Order</a></li>
+            <li><a href="/dashboards/products">Products</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Log Off</a></li>
+            <li><a href="/admins/index">Log Off</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

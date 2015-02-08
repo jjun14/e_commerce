@@ -62,10 +62,6 @@
       {
         padding: 0px;
       }
-/*      #searchFilterForm .input-group;
-      {
-        display: inline-block;
-      }*/
     </style>
   </head>
   <body>
@@ -85,11 +81,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Orders</a></li>
-            <li><a href="#">Products</a></li>
+            <li class="active"><a href="/dashboards/orders">Orders</a></li>
+            <li><a href="/dashboards/products">Products</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Log Off</a></li>
+            <li><a href="/admins/index">Log Off</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -126,7 +122,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><a href="">100</a></td>
+                <td><a href="/orders/show">100</a></td>
                 <td>Michael Choi</td>
                 <td>2/7/2015</td>
                 <td>1982 Zanker Road San Jose, CA 95112</td>
@@ -144,7 +140,7 @@
                 </td>
               </tr>
               <tr>
-                <td><a href="">4</a></td>
+                <td><a href="/orders/show">4</a></td>
                 <td>Jimmy Jun</td>
                 <td>2/8/2015</td>
                 <td>1 Zanker Road San Jose, CA 95112</td>
@@ -162,7 +158,7 @@
                 </td>
               </tr>
               <tr>
-                <td><a href="">6</a></td>
+                <td><a href="/orders/show">6</a></td>
                 <td>Matt Rutledge</td>
                 <td>2/9/2015</td>
                 <td>2 Zanker Road San Jose, CA 95112</td>
@@ -180,7 +176,7 @@
                 </td>
               </tr>
               <tr>
-                <td><a href="">46</a></td>
+                <td><a href="/orders/show">46</a></td>
                 <td>Andrew Lee</td>
                 <td>2/10/2015</td>
                 <td>82 Zanker Road San Jose, CA 95112</td>
@@ -198,7 +194,7 @@
                 </td>
               </tr>
               <tr>
-                <td><a href="">99</a></td>
+                <td><a href="/orders/show">99</a></td>
                 <td>Rory Pasley</td>
                 <td>2/11/2015</td>
                 <td>98 Zanker Road San Jose, CA 95112</td>

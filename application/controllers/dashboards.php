@@ -8,9 +8,13 @@ class Dashboards extends CI_Controller {
 		$this->output->enable_profiler();
 	}
 
-	public function index()
+  public function orders()
+  {
+    $this->load->view('/dashboards/orders');
+  }
+	public function products()
 	{
-		echo "Welcome to CodeIgniter. The default Controller is Main.php";
+		$this->load->view('/dashboards/products');
 	}
 }
 

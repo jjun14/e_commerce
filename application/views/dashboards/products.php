@@ -110,11 +110,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">Order</a></li>
-            <li><a href="#">Products</a></li>
+            <li><a href="/dashboards/orders">Order</a></li>
+            <li><a href="/dashboards/products">Products</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Log Off</a></li>
+            <li><a href="/admins/index">Log Off</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -158,7 +158,7 @@
                 <td>123</td>
                 <td>1000</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -172,7 +172,7 @@
                 <td>23</td>
                 <td>100</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -186,7 +186,7 @@
                 <td>12</td>
                 <td>11</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -200,7 +200,7 @@
                 <td>88</td>
                 <td>1</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -214,7 +214,7 @@
                 <td>34</td>
                 <td>99</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -257,7 +257,7 @@
     <!-- Beginning of Modal -->
     <div class="container-fluid modal fade" id="edit_modal">
       <div class="row-fluid">
-        <div class="wrapper col-md-4 col-md-offset-4 modal-content">
+        <div class="wrapper col-md-6 col-md-offset-3 modal-content">
           <div class="row-fluid">
             <div class="col-md-11">
               <h2>Edit Product - ID 2</h2> 

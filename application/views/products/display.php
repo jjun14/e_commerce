@@ -88,7 +88,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Shopping Cart (5)</a></li>
+            <li><a href="carts/">Shopping Cart (5)</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -143,7 +143,7 @@
       <?php } ?>
 
               <div class="products">
-                <img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif">
+                <a href="/products/show"><img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif"></a>
                 <p>Black Belt</p>
               </div>
       <?php }

@@ -10,9 +10,13 @@ class Products extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('products/products');
-		// echo "Welcome to CodeIgniter. The default Controller is Main.php";
+		$this->load->view('/products/display');
 	}
+  public function show()
+  {
+    $this->load->view('/products/info');
+  }
+
 }
 
 //end of main controller

@@ -8,12 +8,10 @@ class Orders extends CI_Controller {
 		$this->output->enable_profiler();
 	}
 
-	public function index()
+	public function show()
 	{
-		echo "Welcome to CodeIgniter. The default Controller is Main.php";
+		$this->load->view('orders/show');
 	}
 }
 
 //end of orders controller
-
-//order's comment
