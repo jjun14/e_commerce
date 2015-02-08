@@ -71,7 +71,29 @@
       {
         margin-top: 40px;
         margin-bottom: 40px;
+        padding: 20px;
       }
+      h2, #close
+      {
+        display: inline-block; 
+        vertical-align: top;
+      }
+      h2 
+      {
+        margin: 0px 0px 15px 0px;
+      }
+      div.picture_row div, div.picture_row p, div.picture_row form
+      {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      div.edit_picture
+      {
+        width: 20px;
+        height: 27px;
+        background-color: black;
+      }
+
     </style>
   </head>
   <body>
@@ -240,17 +262,17 @@
 
     <!-- MODAL -->
     <div class="container-fluid modal fade" id="edit_modal">
-      <div class="row">
-        <div class="wrapper col-md-6 col-md-offset-3 modal-content">
-          <div class="row">
+      <div class="row-fluid">
+        <div class="wrapper col-md-4 col-md-offset-4 modal-content">
+          <div class="row-fluid">
             <div class="col-md-11">
               <h2>Edit Product - ID 2</h2> 
             </div>
             <div class="col-md-1">
-              <button class="btn btn-danger">x</button>
+              <button class="close" data-dismiss="modal">x</button>
             </div>
           </div><!-- row -->
-          <div class="row">
+          <div class="row-fluid">
             <div class="col-md-6 col-md-offset-3">
               <form id="editProductForm" action="" method="post">
                 <div class="form-group">
@@ -284,9 +306,8 @@
                   </form>
                   <!-- draggable -->
                   <div class="images">
-                  
                     <div class="picture_row">
-                      <div class="picture"></div>
+                      <div class="edit_picture"></div>
                       <p>img.png</p>
                       <form class="deleteImageForm" action="" method="post">
                         <input type="hidden" name="picture_id" value="2">
@@ -302,7 +323,7 @@
                       </form>
                     </div> <!-- div.picture_row -->          
                     <div class="picture_row">
-                      <div class="picture"></div>
+                      <div class="edit_picture"></div>
                       <p>img.png</p>
                       <form class="deleteImageForm" action="" method="post">
                         <input type="hidden" name="picture_id" value="2">
@@ -318,7 +339,7 @@
                       </form>
                     </div> <!-- div.picture_row -->          
                     <div class="picture_row">
-                      <div class="picture"></div>
+                      <div class="edit_picture"></div>
                       <p>img.png</p>
                       <form class="deleteImageForm" action="" method="post">
                         <input type="hidden" name="picture_id" value="2">
@@ -335,9 +356,11 @@
                     </div> <!-- div.picture_row -->
                   </div><!-- div.images -->
                 </div>
-                <button class="btn btn-danger">Cancel</button>
-                <button class="btn btn-success">Preview</button>
-                <input type="submit" class="btn btn-primary">
+                <div class="row">
+                  <button class="btn btn-danger">Cancel</button>
+                  <button class="btn btn-success">Preview</button>
+                  <input type="submit" class="btn btn-primary">                  
+                </div>
               </form>
             </div><!-- div.col-md-8 col-md-offset-2 -->
           </div><!-- row -->
