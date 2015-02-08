@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <style type="text/css">
+
       .navbar-custom 
       {
         background-color:#930000;
@@ -48,10 +49,23 @@
       {
         display: inline-block;
       }
-      form div
+      .pages
+      {
+        text-align: center;
+      }
+      table
+      {
+        margin: 0px;
+        padding: 0px;
+      }
+      .col-md-10
+      {
+        padding: 0px;
+      }
+/*      #searchFilterForm .input-group;
       {
         display: inline-block;
-      }
+      }*/
     </style>
   </head>
   <body>
@@ -71,7 +85,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">Order</a></li>
+            <li class="active"><a href="#">Orders</a></li>
             <li><a href="#">Products</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -81,26 +95,23 @@
       </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid">
-    <!-- Start Search and Filter Form -->
-      <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-          <form action="">
-            <div class="input-group">
-                <span class="input-group-addon glyphicon glyphicon-search"></span>
-                <input class="form-control" name="search" type="text" placeholder="Search...">
-            </div>
-            <div class="input-group">
-              <select class="form-control" name="filter">
-                <option>Show All</option>
-                <option>Order In Process</option>
-                <option>Shipped</option>
-              </select>            
-            </div>
-          </form>        
-        </div>
+      <!-- Start Search and Filter Form -->
+      <div class="row-fluid">
+        <form class="form-inline" action="">
+          <div class="input-group col-md-2 col-md-offset-1">
+            <input class="form-control" type="text" placeholder="search">
+          </div>
+          <div class="input-group col-md-2 col-md-offset-6">
+            <select class="form-control" name="order_status">
+              <option value="show_all">Show All</option>
+              <option value="order_in_process">Order In Process</option>
+              <option value="shipped">Shipped</option>
+            </select>  
+          </div>
+        </form>
       </div>
-    <!-- End Search and Filter Form -->
-      <div class="row">
+      <!-- End Search and Filter Form -->
+      <div class="row-fluid">
         <div class="col-md-10 col-md-offset-1">
           <table class="table table-bordered table-striped">
             <thead>
@@ -157,7 +168,7 @@
                 <td>2 Zanker Road San Jose, CA 95112</td>
                 <td>$159.99</td>
                 <td>
-                  <form action="">
+                  <form action="" method="post">
                     <div class="input-group">
                       <select class="form-control" name="order_status">
                         <option>Shipped</option>
@@ -207,28 +218,31 @@
             </tbody>
           </table>
         </div>
-        <div class="col-md-1"></div>
-      </div><!-- row -->
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-          <p>&lt- |</p>
-          <p>1 |</p>
-          <p>2 |</p>
-          <p>3 |</p>
-          <p>4 |</p>
-          <p>5 |</p>
-          <p>6 |</p>
-          <p>7 |</p>
-          <p>8 |</p>
-          <p>9 |</p>
-          <p>10 |</p>
-          <p>-&gt</p>
+      </div><!-- .row-fluid -->
+      <div class="row-fluid">
+        <div class="col-md-6 col-md-offset-3 pages">
+          <nav>
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-        <div class="col-md-4"></div>
-      </div><!-- row -->
-    </div><!-- container-fluid -->
+      </div><!-- .row-fluid --> 
+      <!-- pagination end -->
+    </div><!-- .container-fluid -->
   </body>
 </html>
-
-
-<!-- test -->
