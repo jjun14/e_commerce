@@ -59,6 +59,14 @@
         height: 50px;
         width: 100px;
       }
+      .pages
+      {
+        text-align: center;
+      }
+      .add_new 
+      {
+        text-align: right;
+      }
     </style>
   </head>
   <body>
@@ -90,22 +98,22 @@
     <!-- End Navbar -->
     <div class="container-fluid">
     <!-- Start Search and Filter Form -->
-      <div class="row">
+      <div class="row-fluid">
         <div class="col-md-2 col-md-offset-1">
           <form action="">
             <div class="input-group">
-                <span class="input-group-addon glyphicon glyphicon-search"></span>
+                <!-- <span class="input-group-addon glyphicon glyphicon-search"></span> -->
                 <input class="form-control" name="search" type="text" placeholder="Search...">
             </div>
           </form>
         </div>
-        <div class="col-md-3 col-md-offset-6">
+        <div class="col-md-2 col-md-offset-6 add_new">
           <a class="btn btn-primary" href="">Add new product</a>
         </div>
       </div>
     <!-- End Search and Filter Form -->
     <!-- Start Table -->
-      <div class="row">
+      <div class="row-fluid">
         <div class="col-md-10 col-md-offset-1">
           <table class="table table-bordered table-striped">
             <thead>
@@ -126,9 +134,9 @@
                 <td>123</td>
                 <td>1000</td>
                 <td>
-                  <p>edit</p>
+                  <p class="btn-link">edit</p>
                   <form action="">
-                    <input type="submit" value="delete">
+                    <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
                   </form>
                 </td>
@@ -141,9 +149,9 @@
                 <td>23</td>
                 <td>100</td>
                 <td>
-                  <p>edit</p>
+                  <p class="btn-link">edit</p>
                   <form action="">
-                    <input type="submit" value="delete">
+                    <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
                   </form>
                 </td>
@@ -155,9 +163,9 @@
                 <td>12</td>
                 <td>11</td>
                 <td>
-                  <p>edit</p>
+                  <p class="btn-link">edit</p>
                   <form action="">
-                    <input type="submit" value="delete">
+                    <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
                   </form>
                 </td>
@@ -169,9 +177,9 @@
                 <td>88</td>
                 <td>1</td>
                 <td>
-                  <p>edit</p>
+                  <p class="btn-link">edit</p>
                   <form action="">
-                    <input type="submit" value="delete">
+                    <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
                   </form>
                 </td>
@@ -183,9 +191,9 @@
                 <td>34</td>
                 <td>99</td>
                 <td>
-                  <p>edit</p>
+                  <p class="btn-link">edit</p>
                   <form action="">
-                    <input type="submit" value="delete">
+                    <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
                   </form>
                 </td>
@@ -197,23 +205,32 @@
         <!-- End Table -->
         <div class="col-md-1"></div>
       </div><!-- row -->
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-          <p>&lt- |</p>
-          <p>1 |</p>
-          <p>2 |</p>
-          <p>3 |</p>
-          <p>4 |</p>
-          <p>5 |</p>
-          <p>6 |</p>
-          <p>7 |</p>
-          <p>8 |</p>
-          <p>9 |</p>
-          <p>10 |</p>
-          <p>-&gt</p>
+      <!-- pagination start -->
+      <div class="row-fluid">
+        <div class="col-md-6 col-md-offset-3 pages">
+          <nav>
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              </li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-        <div class="col-md-4"></div>
-      </div><!-- row -->
+        <!-- pagination end -->
+      </div><!-- .row-fluid -->
     </div><!-- container-fluid -->
   </body>
 </html>
