@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <style type="text/css">
       .navbar-custom 
       {
@@ -67,6 +69,11 @@
       {
         text-align: right;
       }
+      div.wrapper 
+      {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
     </style>
   </head>
   <body>
@@ -108,7 +115,7 @@
           </form>
         </div>
         <div class="col-md-2 col-md-offset-6 add_new">
-          <a class="btn btn-primary" href="">Add new product</a>
+          <buttn class="btn btn-primary" data-toggle="modal" data-target="#edit_modal" href="">Add new product</button>
         </div>
       </div>
     <!-- End Search and Filter Form -->
@@ -232,5 +239,113 @@
         <!-- pagination end -->
       </div><!-- .row-fluid -->
     </div><!-- container-fluid -->
+
+    <!-- MODAL -->
+    <div class="container-fluid modal fade" id="edit_modal">
+      <div class="row">
+        <div class="wrapper col-md-6 col-md-offset-3 modal-content">
+          <div class="row">
+            <div class="col-md-11">
+              <h2>Edit Product - ID 2</h2> 
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-danger">x</button>
+            </div>
+          </div><!-- row -->
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <form id="editProductForm" action="" method="post">
+                <div class="form-group">
+                  <label for="name">Name: </label>
+                  <input type="text" class="form-control" name="name" id="name" value="Hat">
+                </div>
+                
+                <div class="form-group">
+                  <label for="description">Description: </label>
+                  <input type="text" class="form-control" name="description" value="Great Fit, Cool new colors">
+                </div>        
+                <div class="form-group">
+                  <label for="categories">Categories: </label>
+                  <select class="form-control" name="categories">
+                    <option>Hats</option>
+                    <option>Mugs</option>
+                    <option>Pants</option>
+                    <option>Belt</option>
+                  </select> 
+                </div>
+                <div class="form-group">
+                  <label for="add_new_category">Or Add New Category: </label>
+                  <input type="text" class="form-control" name="add_new_category">
+                </div>
+                <div class="form-group" enctype="multipart/form-data">
+                  <form action="" method="post">
+                   <div class="form-group">
+                      <label for="exampleInputFile">Images: </label>
+                      <input type="file" id="exampleInputFile" value="Upload">
+                    </div>
+                  </form>
+                  <!-- draggable -->
+                  <div class="images">
+                  
+                    <div class="picture_row">
+                      <div class="picture"></div>
+                      <p>img.png</p>
+                      <form class="deleteImageForm" action="" method="post">
+                        <input type="hidden" name="picture_id" value="2">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </form>
+                      <form class="changeImageMain"action="" method="post">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">main
+                          </label>
+                        </div>
+                        <input type="hidden" name="picture_id" value="2">
+                      </form>
+                    </div> <!-- div.picture_row -->          
+                    <div class="picture_row">
+                      <div class="picture"></div>
+                      <p>img.png</p>
+                      <form class="deleteImageForm" action="" method="post">
+                        <input type="hidden" name="picture_id" value="2">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </form>
+                      <form class="changeImageMain"action="" method="post">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">main
+                          </label>
+                        </div>
+                        <input type="hidden" name="picture_id" value="2">
+                      </form>
+                    </div> <!-- div.picture_row -->          
+                    <div class="picture_row">
+                      <div class="picture"></div>
+                      <p>img.png</p>
+                      <form class="deleteImageForm" action="" method="post">
+                        <input type="hidden" name="picture_id" value="2">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </form>
+                      <form class="changeImageMain"action="" method="post">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">main
+                          </label>
+                        </div>
+                        <input type="hidden" name="picture_id" value="2">
+                      </form>
+                    </div> <!-- div.picture_row -->
+                  </div><!-- div.images -->
+                </div>
+                <button class="btn btn-danger">Cancel</button>
+                <button class="btn btn-success">Preview</button>
+                <input type="submit" class="btn btn-primary">
+              </form>
+            </div><!-- div.col-md-8 col-md-offset-2 -->
+          </div><!-- row -->
+        </div><!-- wrapper -->
+      </div><!-- row -->
+    </div><!-- container-fluid -->
+    <!-- End MODAL -->
   </body>
 </html>
