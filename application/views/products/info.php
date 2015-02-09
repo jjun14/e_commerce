@@ -113,7 +113,7 @@
       </div>
       <div class="row">
         <div class="dropdown">
-          <form action="/carts/add" method="post">
+          <form action="/carts/add_to_cart" method="post">
             <select name="quantity">
             	<?php
             		for ($i=1;$i<20;$i++)
