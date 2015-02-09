@@ -13,9 +13,10 @@ class Products extends CI_Controller {
 		$this->load->view('/products/display');
 	}
 	
-  public function show()
+  public function show($id)
   {
-    $this->load->view('/products/info');
+  	$array = array("product_id" => $id);
+    $this->load->view('/products/info', $array);
   }
 
 }

@@ -12,6 +12,14 @@ class Carts extends CI_Controller {
 	{
 		$this->load->view('/carts/index');
 	}
+
+	public function add_to_cart()
+	{
+		$array = array("product_id" => $this->input->post('product_id'), "quantity" => $this->input->post('quantity'));
+		$this->load->model('Cart');
+		$this->Cart->add_to_cart($array);
+	}
+
 }
 
 //end of carts controller

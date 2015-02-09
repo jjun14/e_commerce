@@ -113,15 +113,18 @@
       </div>
       <div class="row">
         <div class="dropdown">
-          <select name="quantity">
-          	<?php
-          		for ($i=1;$i<20;$i++)
-          		{
-          			echo "<option value='$i'>$i ($".($i*19.99).")</option>";
-          		}
-          	?>
-          </select>
-          <button>Buy</button>
+          <form action="/carts/add" method="post">
+            <select name="quantity">
+            	<?php
+            		for ($i=1;$i<20;$i++)
+            		{
+            			echo "<option value='$i'>$i ($".($i*19.99).")</option>";
+            		}
+            	?>
+            </select>
+            <input type="submit" value="Buy">
+            <input type="hidden" name="product_id" value= <?= '"'.$product_id.'"' ?> >
+          </form>
     	  </div>
       </div>
 	  <div class="container col-md-9 col-md-offset-1">
