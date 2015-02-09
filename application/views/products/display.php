@@ -11,8 +11,17 @@
       background:black;
       color:white;
     }
+    h3, form
+    {
+      margin-top: 15px;
+    }
+
+    form
+    {
+      text-align: right;
+    }
     #sidebar {
-      width:15%;
+      width:90%;
       height:270px;
       margin-left: 10px;
     }
@@ -23,25 +32,19 @@
       text-decoration: none;
       color: black;
     }
-    #display {
-      width:80%;
-      height:auto;
-      margin-left:5px;
-    }
     #display, #sidebar {
       border:3px solid black;
-      display: inline-block;
       vertical-align: top;
     }
     img {
       border:3px solid black;
-      margin:3px;
+      margin:3px 3px 3px 3px;
       display: inline-block;
       height:115px;
       width:115px;
     }
     .products {
-      margin:5px;
+      margin:20px;
       display: inline-block;
       height:115px;
       width: 115px;
@@ -64,10 +67,8 @@
     #pagination a {
       text-decoration: underline;
     }
-    #pagination li{
-      border-left:solid black 2px;
-      padding:0px 10px;
-      display: inline-block;
+    .pages {
+      text-align: center;
     }
     </style>
   </head>
@@ -95,78 +96,91 @@
     </nav>
     <!-- End Navbar -->
 
+    <div class="container-fluid">
+      <div class="col-md-3">
+        <div id="sidebar" class="col-md-3">
+          <form action="#" method="post">
+            <input type="text" name="product_name" placeholder="product name.">
+            <input type="submit" value="?">
+            <input type="hidden" name="action" value="product_search">
+          </form>
+          <h5>Categories</h5>
+          <ul id="categories">
+            <li class="btn-link"><a href="#">Tshirts (25)</a></li>
+            <li class="btn-link"><a href="#">Shoes (35)</a></li>
+            <li class="btn-link"><a href="#">Cups (5)</a></li>
+            <li class="btn-link"><a href="#">Fruits (105)</a></li>
+            <li class="btn-link"><a style="font-style:italic" href="#">Show All</a></li>
+          </ul>
+        </div>
+      </div>
+    <!-- <div id="sidebar"> -->
+<!--     </div>sidebar end -->
 
-    <div id="sidebar">
-      <form action="#" method="post">
-        <input type="text" name="product_name" placeholder="product name.">
-        <input type="submit" value="?">
-        <input type="hidden" name="action" value="product_search">
-      </form>
-      <h5>Categories</h5>
-      <ul id="categories">
-        <li><a href="#">Tshirts (25)</a></li>
-        <li><a href="#">Shoes (35)</a></li>
-        <li><a href="#">Cups (5)</a></li>
-        <li><a href="#">Fruits (105)</a></li>
-        <li><a style="font-style:italic" href="#">Show All</a></li>
-      </ul>
-    </div><!-- sidebar end -->
-
-
-    <div id="display">
-
-      <div class="container col-md-9 col-md-offset-1">
+      <div id="display" class="col-md-9">
         <div class="row">
           <div class="col-md-4">
            <h3>Tshirts (page 2)</h3>
           </div>
-          <div class="col-md-5 col-md-offset-3">
-            <ul id="italics">
-              <li><a href="#">first</a></li>
-              <li><a href="#">prev</a></li>
-              <li>2</li>
-              <li><a href="#">next</a></li>
-            </ul>
-            <p>Sorted by 
-              <select name="sort_by">
-                <option value="price">Price</option>
-                <option value="most_popular">Most Popular</option>
-              </select>
-            </p>
+          <div class="col-md-4 col-md-offset-3">
+            <form action="">
+              <ul id="italics">
+                <li>first</li>
+                <li>prev</li>
+                <li>2</li>
+                <li>next</li>
+              </ul>
+              <p>Sorted by 
+                <select name="sort_by">
+                  <option value="price">Price</option>
+                  <option value="most_popular">Most Popular</option>
+                </select>
+              </p>
+            </form>
           </div>
         </div>
-        <?php
-          for ($i=0;$i<15;$i++)
-          {
-            if ($i%5 == 0) { ?>
-              <div class="space"></div>
-      <?php } ?>
+        <div class="row">
+          <div class="col-md-12">
+<!--             <?php
+              for ($i=0;$i<15;$i++)
+              {
+                if ($i%5 == 0) { ?>
+                  <div class="space"></div>
+          <?php } ?>
 
-              <div class="products">
-                <a href="/products/show"><img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif"></a>
-                <p>Black Belt</p>
-              </div>
-      <?php }
-        ?>
-      <div class="space"></div>
-
-      <ul id="pagination">
-        <li><a href="#">1</a></li>
-        <li>2</li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li><a href="#">7</a></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#">9</a></li>
-        <li><a href="#">10</a></li>
-        <li><a href="#">-></a></li>
-      </ul>
+                  <div class="products">
+                    <a href="/products/show"><img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif"></a>
+                    <p>Black Belt</p>
+                  </div>
+          <?php }
+            ?>  -->           
+          </div>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 pages">
+            <nav>
+              <ul class="pagination">
+                <li>
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
-
-    </div><!-- display end -->
 
 
     
