@@ -89,7 +89,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/carts/index">Shopping Cart (5)</a></li>
+            <li><a href="/carts/show">Shopping Cart (5)</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -141,19 +141,19 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-<!--             <?php
-              for ($i=0;$i<15;$i++)
-              {
-                if ($i%5 == 0) { ?>
-                  <div class="space"></div>
-          <?php } ?>
+        <?php
+          for ($i=1;$i<16;$i++)
+          {
+            if ($i%6 == 0) { ?>
+              <div class="space"></div>
+      <?php } ?>
 
-                  <div class="products">
-                    <a href="/products/show"><img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif"></a>
-                    <p>Black Belt</p>
-                  </div>
-          <?php }
-            ?>  -->           
+              <div class="products">
+                <a href="/products/show/"><img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif"></a>
+                <p>Black Belt</p>
+              </div>
+      <?php }
+        ?>      
           </div>
         </div>
         <div class="space"></div>

@@ -50,6 +50,7 @@
     </style>
   </head>
   <body>
+    <?php var_dump($products) ?>
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
       <div class="container-fluid">
@@ -86,33 +87,33 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Black Belt for Staff</td>
-                <td>$19.99</td>
-                <td>
-                  1
-                  <button class="btn-link">update</button>
-                  <span class="glyphicon glyphicon-trash"></span>
-                </td>
-                <td>$19.99</td>
-              </tr>              
-              <tr>
-                <td>CodingDojo Cups</td>
-                <td>$9.99</td>
-                <td>
-                  3
-                  <button class="btn-link">update</button>
-                  <span class="glyphicon glyphicon-trash"></span>
-                </td>
-                <td>$29.97</td>
-              </tr>                       
+              <?php
+
+              $total = 0;
+
+              foreach($products as $key => $value)
+              {
+
+                echo 
+                "<tr><td>".$value['name']."</td><td>$".
+                $value['price']."</td><td>".
+                $value['product_qty']."<button class='btn-link'>update</button>
+                <span class='glyphicon glyphicon-trash'></span></td><td>$".
+                ($value['price']*$value['product_qty'])."</td></tr>"; 
+
+                $total += ($value['price']*$value['product_qty']);
+
+                ?>
+                
+                                
+        <?php } ?>
             </tbody>
           </table>
         </div><!-- .col-md-12 -->
       </div><!-- .row-fluid -->
       <div class="row-fluid">
         <div class="col-md-2 col-md-offset-10 total">
-          <p>Total: $49.96</p>
+          <p>Total: $<?= $total ?></p>
           <div class="row-fluid">
             <div class="col-md-2 col-md-offset-4">
               <a class="btn btn-success" href="/products/index">Continue Shopping</a>

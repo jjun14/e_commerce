@@ -9,7 +9,7 @@ class Cart extends CI_Model
 		date_default_timezone_set('America/Los_Angeles');
 	}
 
-	public function add_to_cart($array)
+	public function add_to_cart($order_data)
 	{
 		// $this->session->unset_userdata('id');
 
@@ -23,19 +23,14 @@ class Cart extends CI_Model
 		}
 
 		// testing whether user has created a cart
-		$test = $this->db->query("SELECT * FROM carts WHERE user_id = ?", array($this->session->userdata('id')))->row_array();
-		// echo "<h1>ARRAY</h1>";
-		// var_dump($array);
-		// echo "<h1>TEST</h1>";
-		// var_dump($test);
-		// echo($this->session->userdata('id'));
-		// die();
+		$cart_check = $this->db->query("SELECT * FROM carts WHERE user_id = ?", array($this->session->userdata('id')))->row_array();
 
-		if (count($test) > 0) {
-			// add to existing cart
-			$query = "INSERT INTO carts_have_products (cart_id, product_id, product_qty) VALUES (?, ?, ?)";
-			$values = array($test['id'], $array['product_id'], $array['quantity']);
-			$this->db->query($query, $values);
+		// if a cart is found...
+		if (count($cart_check) > 0) {
+		// add to existing cart
+		$query = "INSERT INTO carts_have_products (cart_id, product_id, product_qty) VALUES (?, ?, ?)";
+		$values = array($cart_check['id'], $order_data['product_id'], $order_data['quantity']);
+		$this->db->query($query, $values);
 		}
 		else
 		{
@@ -47,10 +42,36 @@ class Cart extends CI_Model
 
 			// add to newly created cart
 			$query = "INSERT INTO carts_have_products (cart_id, product_id, product_qty) VALUES (?, ?, ?)";
-			$values = array($this->db->insert_id(), $array['product_id'], $array['quantity']);
+			$values = array($this->db->insert_id(), $order_data['product_id'], $order_data['quantity']);
 			$this->db->query($query, $values);
 		}
 
+	}
+
+	public function display_cart()
+	{
+		// $query = "SELECT products.name, products.price, "
+		return $this->db->query("SELECT products.name, products.price, count(carts_have_products.product_qty) AS product_qty 
+FROM users
+LEFT JOIN carts ON users.id = carts.user_id
+LEFT JOIN carts_have_products ON carts.id = carts_have_products.cart_id
+LEFT JOIN products ON products.id = carts_have_products.product_id
+WHERE users.id = 4
+GROUP BY products.id")->result_array();
+// var_dump($query);
+// die();
+	}
+
+
+
+	public function edit_product_qty()
+	{
+				
+
+			// // check if the product 
+			// $product_check = $this->db->query("SELECT * FROM carts_have_products WHERE product_id = ?", array($order_data['product_id'])->row_array();
+
+			// if ()
 	}
 }
 
