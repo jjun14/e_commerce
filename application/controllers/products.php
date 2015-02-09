@@ -6,11 +6,15 @@ class Products extends CI_Controller {
 	{
 		parent::__construct();
 		// $this->output->enable_profiler();
+    $this->load->Model('Product');
 	}
 
 	public function index()
 	{
-		$this->load->view('/products/display');
+    $all_products = $this->Product->get_all_products(1);
+    // var_dump($all_products);
+    // die();
+		$this->load->view('/products/display', array('all_products'=>$all_products));
 	}
   public function show()
   {

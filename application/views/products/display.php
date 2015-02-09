@@ -40,14 +40,19 @@
       border:3px solid black;
       margin:3px 3px 3px 3px;
       display: inline-block;
-      height:115px;
-      width:115px;
+      height:150px;
+      width:150px;
     }
     .products {
       margin:20px;
       display: inline-block;
       height:115px;
       width: 115px;
+    }
+    .product
+    {
+      display: inline-block;
+      margin-right: 10px;
     }
     .space {
       height:30px;
@@ -120,7 +125,7 @@
       <div id="display" class="col-md-9">
         <div class="row">
           <div class="col-md-4">
-           <h3>Tshirts (page 2)</h3>
+           <h3>All Products(page 1)</h3>
           </div>
           <div class="col-md-4 col-md-offset-3">
             <form action="">
@@ -141,19 +146,16 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-<!--             <?php
-              for ($i=0;$i<15;$i++)
-              {
-                if ($i%5 == 0) { ?>
-                  <div class="space"></div>
-          <?php } ?>
-
-                  <div class="products">
-                    <a href="/products/show"><img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif"></a>
-                    <p>Black Belt</p>
-                  </div>
-          <?php }
-            ?>  -->           
+            <?php
+              foreach($all_products[0] as $product)
+              { ?>
+              <div class="product">
+                <img src="<?= $product['url']; ?>" alt="item_image">
+                <p><?= $product['name']; ?></p>
+                <p><?= $product['price']; ?></p>
+              </div>
+        <?php }
+            ?>      
           </div>
         </div>
         <div class="space"></div>
