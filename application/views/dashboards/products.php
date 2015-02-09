@@ -67,6 +67,33 @@
       {
         text-align: right;
       }
+      div.wrapper 
+      {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        padding: 20px;
+      }
+      h2, #close
+      {
+        display: inline-block; 
+        vertical-align: top;
+      }
+      h2 
+      {
+        margin: 0px 0px 15px 0px;
+      }
+      div.picture_row div, div.picture_row p, div.picture_row form
+      {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      div.edit_picture
+      {
+        width: 20px;
+        height: 27px;
+        background-color: black;
+      }
+
     </style>
   </head>
   <body>
@@ -77,20 +104,17 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Dojo eCommerce</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">Order</a></li>
-            <li><a href="#">Products</a></li>
+            <li><a href="/dashboards/orders">Order</a></li>
+            <li><a href="/dashboards/products">Products</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Log Off</a></li>
+            <li><a href="/admins/index">Log Off</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -108,7 +132,7 @@
           </form>
         </div>
         <div class="col-md-2 col-md-offset-6 add_new">
-          <a class="btn btn-primary" href="">Add new product</a>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#edit_modal" href="">Add new product</button>
         </div>
       </div>
     <!-- End Search and Filter Form -->
@@ -134,14 +158,13 @@
                 <td>123</td>
                 <td>1000</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
                   </form>
                 </td>
               </tr>
-              
               <tr>
                 <td><div class="picture"></div></td>
                 <td>2</td>
@@ -149,7 +172,7 @@
                 <td>23</td>
                 <td>100</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -163,7 +186,7 @@
                 <td>12</td>
                 <td>11</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -177,7 +200,7 @@
                 <td>88</td>
                 <td>1</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -191,7 +214,7 @@
                 <td>34</td>
                 <td>99</td>
                 <td>
-                  <p class="btn-link">edit</p>
+                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -215,7 +238,6 @@
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              </li>
               <li><a href="#">1</a></li>
               <li><a href="#">2</a></li>
               <li><a href="#">3</a></li>
@@ -232,5 +254,112 @@
         <!-- pagination end -->
       </div><!-- .row-fluid -->
     </div><!-- container-fluid -->
+    <!-- Beginning of Modal -->
+    <div class="container-fluid modal fade" id="edit_modal">
+      <div class="row-fluid">
+        <div class="wrapper col-md-6 col-md-offset-3 modal-content">
+          <div class="row-fluid">
+            <div class="col-md-11">
+              <h2>Edit Product - ID 2</h2> 
+            </div>
+            <div class="col-md-1">
+              <button class="close" data-dismiss="modal">x</button>
+            </div>
+          </div><!-- row-fluid -->
+          <div class="row-fluid">
+            <div class="col-md-6 col-md-offset-3">
+              <form id="editProductForm" action="" method="post">
+                <div class="form-group">
+                  <label for="name">Name: </label>
+                  <input type="text" class="form-control" name="name" id="name" value="Hat">
+                </div>
+                <div class="form-group">
+                  <label for="description">Description: </label>
+                  <input type="text" class="form-control" name="description" value="Great Fit, Cool new colors">
+                </div>        
+                <div class="form-group">
+                  <label for="categories">Categories: </label>
+                  <select class="form-control" name="categories">
+                    <option>Hats</option>
+                    <option>Mugs</option>
+                    <option>Pants</option>
+                    <option>Belt</option>
+                  </select> 
+                </div>
+                <div class="form-group">
+                  <label for="add_new_category">Or Add New Category: </label>
+                  <input type="text" class="form-control" name="add_new_category">
+                </div>
+                <div class="form-group" enctype="multipart/form-data">
+                  <form action="" method="post">
+                   <div class="form-group">
+                      <label for="exampleInputFile">Images: </label>
+                      <input type="file" id="exampleInputFile" value="Upload">
+                    </div>
+                  </form>
+                  <!-- draggable -->
+                  <div class="images">
+                    <div class="picture_row">
+                      <div class="edit_picture"></div>
+                      <p>img.png</p>
+                      <form class="deleteImageForm" action="" method="post">
+                        <input type="hidden" name="picture_id" value="2">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </form>
+                      <form class="changeImageMain"action="" method="post">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">main
+                          </label>
+                        </div>
+                        <input type="hidden" name="picture_id" value="2">
+                      </form>
+                    </div> <!-- div.picture_row -->          
+                    <div class="picture_row">
+                      <div class="edit_picture"></div>
+                      <p>img.png</p>
+                      <form class="deleteImageForm" action="" method="post">
+                        <input type="hidden" name="picture_id" value="2">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </form>
+                      <form class="changeImageMain"action="" method="post">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">main
+                          </label>
+                        </div>
+                        <input type="hidden" name="picture_id" value="2">
+                      </form>
+                    </div> <!-- div.picture_row -->          
+                    <div class="picture_row">
+                      <div class="edit_picture"></div>
+                      <p>img.png</p>
+                      <form class="deleteImageForm" action="" method="post">
+                        <input type="hidden" name="picture_id" value="2">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </form>
+                      <form class="changeImageMain"action="" method="post">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">main
+                          </label>
+                        </div>
+                        <input type="hidden" name="picture_id" value="2">
+                      </form>
+                    </div> <!-- div.picture_row -->
+                  </div><!-- div.images -->
+                </div>
+                <div class="row">
+                  <button class="btn btn-danger">Cancel</button>
+                  <button class="btn btn-success">Preview</button>
+                  <input type="submit" class="btn btn-primary">                  
+                </div>
+              </form>
+            </div><!-- div.col-md-8 col-md-offset-2 -->
+          </div><!-- row.fluid -->
+        </div><!-- wrapper -->
+      </div><!-- row.fluid -->
+    </div><!-- .container-fluid modal -->
+    <!-- End of Model -->
   </body>
 </html>

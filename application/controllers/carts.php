@@ -10,12 +10,8 @@ class Carts extends CI_Controller {
 
 	public function index()
 	{
-		echo "Welcome to CodeIgniter. The default Controller is Main.php";
+		$this->load->view('/carts/index');
 	}
 }
 
-// Matt's comment
-
 //end of carts controller
-
-//Jimmy's comment
