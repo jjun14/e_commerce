@@ -36,13 +36,35 @@
     h4 {
     	margin-top:70px;
     }
+    #main {
+      height:200px;
+      width:200px;
+      margin-bottom:10px;
+    }
     .similar {
     	margin:5px;
     	display: inline-block;
-    	height:115px;
-    	width: 115px;
+    	height:100px;
+    	width: 100px;
     }
     </style>
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+      $('.secondary').mouseover(function(){
+        $('#main').attr('src', $(this).attr('src'));
+      });
+      // $('#main')
+
+    });
+
+
+
+
+
+
+
+    </script>
   </head>
   <body>
     <!-- Navbar -->
@@ -70,40 +92,38 @@
     <div class="container-fluid">
     	<div class="row">
     		<div class="col-md-2 col-md-offset-1">
-            	<a style="text-decoration:underline" href="#">Go Back</a>
+            	<a style="text-decoration:underline" href="/products/index">Go Back</a>
             </div>
     	</div>
     <!-- Start Search and Filter Form -->
-
-      	<h3 class="col-md-offset-1">Black Belt for Staff</h3>
+      <h3 class="col-md-offset-1">Black Belt for Staff</h3>
       <div class="row">
         <div class="col-md-3 col-md-offset-1">
-          <img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif" class="main">
+          <img id="main" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number1.jpg">
           <div class="row">
-          	<div class="container secondary col-md-3 col-md-offset-1">
-		      	<img class="secondary" src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif">
-		      	<img class="secondary" src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif">
-		      	<img class="secondary" src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif">
-		      	<img class="secondary" src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif">
-		      	<img class="secondary" src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif">
-		     </div>
-          </div>
+            <img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number1.jpg">
+		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number2.jpg">
+		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number3.jpg">
+		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number4.jpg">
+		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number5.jpg">
+  		     </div>
         </div>
-        <div class="row">
-        	<div class="description col-md-5">Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product...</div>
-     	 </div>
+      	<div class="col-md-6">Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product...
+        </div>
       </div>
-      <div class="dropdown">
-	      <select name="quantity">
-	      	<?php
-	      		for ($i=1;$i<20;$i++)
-	      		{
-	      			echo "<option value='$i'>$i ($".($i*19.99).")</option>";
-	      		}
-	      	?>
-	      </select>
-	      <button>Buy</button>
-	  </div>
+      <div class="row">
+        <div class="dropdown">
+          <select name="quantity">
+          	<?php
+          		for ($i=1;$i<20;$i++)
+          		{
+          			echo "<option value='$i'>$i ($".($i*19.99).")</option>";
+          		}
+          	?>
+          </select>
+          <button>Buy</button>
+    	  </div>
+      </div>
 	  <div class="container col-md-9 col-md-offset-1">
 	  <h4>Similar Items</h4>
 	  <?php

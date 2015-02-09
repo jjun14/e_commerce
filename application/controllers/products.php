@@ -12,6 +12,7 @@ class Products extends CI_Controller {
 	{
 		$this->load->view('/products/display');
 	}
+	
   public function show()
   {
     $this->load->view('/products/info');
