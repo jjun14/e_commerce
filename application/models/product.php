@@ -10,6 +10,7 @@
                 LEFT JOIN categories on categories_id = categories.id
                 LEFT JOIN images ON products.id = images.product_id
                 LEFT JOIN image_types ON image_type_id = image_types.id
+                ORDER BY price ASC
                 LIMIT 15 OFFSET ?";
       $all_products = array($this->db->query($query, $offset)->result_array(), $count['num_products']);
       return $all_products;
