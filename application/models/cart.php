@@ -24,9 +24,6 @@ class Cart extends CI_Model
 		// testing whether user has created a cart
 		$cart_check = $this->db->query("SELECT * FROM carts WHERE user_id = ?", array($this->session->userdata('id')))->row_array();
 
-		var_dump($cart_check);
-		die();
-
 		// if a cart is found...
 		if (count($cart_check) > 0) {
 
