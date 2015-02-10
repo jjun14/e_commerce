@@ -23,9 +23,9 @@ class Carts extends CI_Controller {
 
 	public function checkout()
 	{
-		// $products = $this->Cart->display_cart($this->session->userdata('id'));
-		// $user_data = $this->input->post();
-		// $this->Cart->checkout($products, $user_data);
+		$products = $this->Cart->display_cart($this->session->userdata('id'));
+		$user_data = $this->input->post();
+		$this->Cart->checkout($products, $user_data);
 		$this->load->view('/carts/success');
 	}
 
