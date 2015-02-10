@@ -94,7 +94,6 @@
     		<div class="col-md-2 col-md-offset-1">
             	<a style="text-decoration:underline" href="/products/index">Go Back</a>
             </div>
-    	</div>
     <!-- Start Search and Filter Form -->
       <h3 class="col-md-offset-1">Black Belt for Staff</h3>
       <div class="row">
