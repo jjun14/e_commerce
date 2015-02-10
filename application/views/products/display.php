@@ -8,8 +8,39 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $(document).on('change', '#page_num', function(){
-          $('#filterForm').submit();
+        // page_nav_handler();
+        // page_num_handler();
+        // filter_form_handler();
+        $(document).on('click', '.page-nav', function(){
+          var current_page = parseInt($('#page_num').attr('value'));
+          if($(this).text() == 'first')
+          {
+            $('#page_num').attr('value', 1);
+          }
+          else if($(this).text() == 'next')
+          {
+            if(!($(".pagination li").length - 2 < current_page + 1))
+            {
+              $('#page_num').attr('value', current_page + 1);
+            }
+          }
+          else if($(this).text() == 'prev')
+          {
+            // if(!(current_page - 1 < 1))
+            {
+              $('#page_num').attr('value', current_page - 1);
+            }
+          }
+          else 
+          {
+            $('#page_num').attr('value', current_page);
+          }
+          // $('#filterForm').submit();
+        });
+
+        $(document).on('click', '.page_num', function(){
+          $('#page_num').attr('value', $(this).text());
+          // $('#filterForm').submit();
         });
 
         $(document).on('submit', '#filterForm', function(){
@@ -24,40 +55,6 @@
             });
           return false;
         });
-
-
-        $('.page_num').click(function(){
-          $('#page_num').attr('value', $(this).text());
-        });
-
-        $('.page-nav').click(function(){
-          var current_page = parseInt($('#page_num').attr('value'));
-          // alert(current_page);
-          // console.log($(this));
-          if($(this).text() == 'first')
-          {
-            $('#page_num').attr('value', 1);
-          }
-          else if($(this).text() == 'next')
-          {
-            if(!($(".pagination li").length - 2 < current_page + 1))
-            {
-              $('#page_num').attr('value', current_page + 1);
-              // alert("here");
-            }
-          }
-          else if($(this).text() == 'prev')
-          {
-            if(!(current_page - 1 < 1))
-            {
-              $('#page_num').attr('value', current_page - 1);
-            }
-          }
-          else 
-          {
-            $('#page_num').attr('value', current_page);
-          }
-        })
       });
     </script>
     <style type="text/css">
@@ -201,7 +198,7 @@
               </p>
               <input id="page_num" type="hidden" name="page_num" value="<?= $page_num; ?>">
               <input type="hidden" name="categories" value="show_all">
-<!--               <input type="submit" value="Submit"> -->
+              <input type="submit" value="Submit">
             </form>
           </div>
         </div>
