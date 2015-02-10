@@ -18,7 +18,7 @@ class Carts extends CI_Controller {
 	{
 		$order_data = array("product_id" => $this->input->post('product_id'), "quantity" => $this->input->post('quantity'));
 		$this->Cart->add_to_cart($order_data);
-		$this->load->view('/carts/info');
+		$this->load->view('/carts/index');
 	}
 
 	public function checkout()
