@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
     <style type="text/css">
       .navbar-custom 
       {
@@ -54,16 +55,23 @@
         background-color:lightgrey;
       }
     </style>
+    <script type="text/javascript" src="https://js.stripe.com/v2/">
+      Stripe.card.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry-month').val(),
+        exp_year: $('.card-expiry-year').val()
+      }, stripeResponseHandler);
+    </script>
     <script type="text/javascript">
 
-    $(document).ready(function(){
+      $(document).ready(function(){
 
-      // Disables billing inputs when checked
-      $('#checkbox').on('change', function() {
-        $('.billing').attr('disabled','disabled');
+        // Disables billing inputs when checked
+        $('#checkbox').on('change', function() {
+          $('.billing').attr('disabled','disabled');
+        });
       });
-
-    });
 
     </script>
   </head>
@@ -142,10 +150,11 @@
           </div>
         </div>
       </div>
+      
       <!-- End of Item Table -->
       <!-- REMOVE BR TAGS LATER -->
       <div class="row-fluid">
-        <div class="col-md-4">
+        <div class="col-md-12">
           <h2>Shipping Information</h2>
           <form action="/carts/checkout" method="post">
             First Name: <input type="text" name="shipping_first_name" value="Matt">
@@ -180,19 +189,24 @@
             State: <input class="billing" type="text" name="billing_state">
             <br>
             Zipcode: <input class="billing" type="text" name="billing_zipcode">
-            <br>
-            Card: <input class="card" type="text" name="billing_card">
-            <br>
-            Security Code: <input class="card" type="text" name="billing_security_code">
-            <br>
-            Expiration: <input class="exp" type="text" name="month" placeholder="(mm)"> /
-            <input class="exp" type="text" name="year" placeholder="(year)">
-            <br>
             <input type="hidden" name="total" value= <?= '"'.$total.'"' ?>>
-            <input class="btn btn-primary" type="submit" value="Pay">
           </form>
         </div><!-- .col-md-3 -->
       </div><!-- .row-fluid -->
+      <div class="row">
+        <div class="col-md-2 ">
+          <form action="" method="POST">
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="pk_test_4cxxj2bkbtLeFbO7ITBmJF0s"
+              data-amount=<?= '"'.($total*100).'"'; ?>
+              data-name="Demo Site"
+              data-description="2 widgets ($20.00)"
+              data-image="/128x128.png">
+            </script>
+          </form>
+        </div>
+      </div>
     </div><!-- .container-fluid -->
   </body>
 </html>
