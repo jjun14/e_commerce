@@ -177,12 +177,6 @@
             <input type="hidden" name="action" value="product_search">
           </form>
           <h5>Categories</h5>
-<!--           <ul id="categories"> -->
-<!--             <li class="btn-link"><a href="#">Tshirts (25)</a></li>
-            <li class="btn-link"><a href="#">Shoes (35)</a></li>
-            <li class="btn-link"><a href="#">Cups (5)</a></li>
-            <li class="btn-link"><a href="#">Fruits (105)</a></li>
-            <li class="btn-link"><a style="font-style:italic" href="#">Show All</a></li> -->
 <?php 
             foreach($categories_count as $category_count)
             {
