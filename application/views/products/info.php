@@ -42,8 +42,9 @@
       margin-bottom:10px;
     }
     .similar {
-    	margin:5px;
+    	margin: 5px 20px 5px 0px;
     	display: inline-block;
+      vertical-align: top;
     	height:100px;
     	width: 100px;
     }
@@ -122,23 +123,23 @@
             	?>
             </select>
             <input type="submit" value="Buy">
-            <input type="hidden" name="product_id" value= <?= '"'.$product_id.'"' ?> >
+            <input type="hidden" name="product_id" value= '<?= $product['id']; ?>'>
           </form>
     	  </div>
       </div>
-	  <div class="container col-md-9 col-md-offset-1">
-	  <h4>Similar Items</h4>
-	  <?php
-	  	for ($i=0;$i<7;$i++)
-	  	{ ?>
-	  		<div class="similar">
-	  			<img class="similar" src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif">
-	  			<p>Black Belt</p>
-	  		</div>
-  <?php }
-	  ?>
-	</div>
-
+      <div class="row">
+        <div class="col-md-9 col-md-offset-1">
+          <h4>Similar Items</h4>
+  <?php     foreach($similar as $item)
+            { 
+  ?>          <div class="similar">
+                <a href="/products/show/<?= $item['id']; ?>"><img class="similar" src="<?= $item['url']; ?>" alt=""></a>
+                <p><?= $item['name']; ?></p>
+              </div>
+  <?php     }
+  ?>
+        </div>
+      </div>
     </div><!-- container-fluid -->
   </body>
 </html>

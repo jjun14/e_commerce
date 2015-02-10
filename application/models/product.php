@@ -48,5 +48,22 @@ class Product extends CI_Model
               GROUP BY categories.name";
     return $this->db->query($query)->result_array();
   }
+  function get_product($id)
+  {
+    $query = "SELECT * FROM products
+              WHERE id = ?";
+    return $this->db->query($query, $id)->row_array();
+  }
+  function get_similar_products($id, $categories_id)
+  {
+    $query = "SELECT products.id, products.name, url FROM products 
+              LEFT JOIN images ON product_id = products.id
+              WHERE categories_id = ?
+              AND products.id NOT IN (?)
+              ORDER BY rand()
+              LIMIT 7";
+    $values = array($categories_id, $id);
+    return $this->db->query($query, $values)->result_array();
+  }
 }
 ?>
