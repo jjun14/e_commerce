@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admins extends CI_Controller {
+class Admin extends CI_Controller {
 
   public function __construct()
   {
@@ -11,6 +11,11 @@ class Admins extends CI_Controller {
   public function index()
   {
     $this->load->view('/admins/index');
+  }
+  public function login()
+  {
+    var_dump($this->input->post());
+    die();
   }
 }
 

@@ -22,7 +22,7 @@
         </div>
         <div class="">
           <!-- REMOVE BRS LATER -->
-          <form action="/dashboards/orders" method='post'>
+          <form action="/admin/login" method='post'>
             Email: <input type="text" name="name">
             <br>
             Password: <input type="password" name="password">
