@@ -23,7 +23,7 @@
         <div class="">
           <!-- REMOVE BRS LATER -->
           <form action="/admin/login" method='post'>
-            Email: <input type="text" name="name">
+            Email: <input type="text" name="email">
             <br>
             Password: <input type="password" name="password">
             <br>

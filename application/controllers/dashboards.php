@@ -5,7 +5,11 @@ class Dashboards extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->output->enable_profiler();
+		// $this->output->enable_profiler();
+    if($this->session->userdata('logged_in') != true)
+    {
+      redirect('/products/');
+    }
 	}
 
   public function orders()

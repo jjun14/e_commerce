@@ -85,7 +85,7 @@
             <li><a href="/dashboards/products">Products</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/admins/index">Log Off</a></li>
+            <li><a href="/admin/log_off">Log Off</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
