@@ -50,7 +50,7 @@
     </style>
   </head>
   <body>
-    <?php var_dump($products) ?>
+    <!-- <?php //var_dump($products) ?> -->
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
       <div class="container-fluid">
@@ -62,7 +62,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Dojo eCommerce</a>
+          <a class="navbar-brand" href="/products/index">Dojo eCommerce</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -89,11 +89,13 @@
             <tbody>
               <?php
 
+
+
               $total = 0;
 
               foreach($products as $key => $value)
               {
-
+                // displaying each row of cart data
                 echo 
                 "<tr><td>".$value['name']."</td><td>$".
                 $value['price']."</td><td>".
@@ -101,6 +103,7 @@
                 <span class='glyphicon glyphicon-trash'></span></td><td>$".
                 ($value['price']*$value['product_qty'])."</td></tr>"; 
 
+                // increment total
                 $total += ($value['price']*$value['product_qty']);
 
                 ?>
@@ -126,21 +129,26 @@
       <div class="row-fluid">
         <div class="col-md-4">
           <h2>Shipping Information</h2>
-          <form action="">
-            First Name: <input type="text" name="shipping_first_name">
+          <form action="/carts/checkout" method="post">
+            First Name: <input type="text" name="shipping_first_name" value="Matt">
             <br>
-            Last Name: <input type="text" name="shipping_last_name">
+            Last Name: <input type="text" name="shipping_last_name" value="Rutledge">
             <br>
-            Address: <input type="text" name="shipping_address_1">
+            Address: <input type="text" name="shipping_address_1" value="1631 Mercy St">
             <br>
-            Address 2: <input type="text" name="shipping_address_2">
+            Address 2: <input type="text" name="shipping_address_2" value="Unit A">
             <br>
-            City: <input type="text" name="shipping_city">
+            City: <input type="text" name="shipping_city" value="Mountain View">
             <br>
-            State: <input type="text" name="shipping_state">
+            State: <input type="text" name="shipping_state" value="CA">
             <br>
-            Zipcode: <input type="text" name="shipping_zipcode">
+            Zipcode: <input type="text" name="shipping_zipcode" value="94041">
           <h2>Billing Information</h2>
+          <label>
+            <input type="checkbox" name="same_as" value="checked">
+            Same as Shipping
+          </label>
+          <br>
             First Name: <input type="text" name="billing_first_name">
             <br>
             Last Name: <input type="text" name="billing_last_name">
@@ -161,6 +169,7 @@
             <br>
             Card: <input type="text" name="billing_card">
             <br>
+            <input type="hidden" name="total" value= <?= '"'.$total.'"' ?>>
             <input class="btn btn-primary" type="submit" value="Pay">
           </form>
         </div><!-- .col-md-3 -->

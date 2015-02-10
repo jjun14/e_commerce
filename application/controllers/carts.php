@@ -6,13 +6,11 @@ class Carts extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Cart');
-		$this->output->enable_profiler();
 	}
 
-	public function show()
+	public function index()
 	{
-		$session_id = $this->session->userdata('id');
-		$products_in_cart = array("products" => $this->Cart->display_cart($session_id));
+		$products_in_cart = array("products" => $this->Cart->display_cart($this->session->userdata('id')));
 		$this->load->view('/carts/index', $products_in_cart);
 	}
 
@@ -21,6 +19,14 @@ class Carts extends CI_Controller {
 		$order_data = array("product_id" => $this->input->post('product_id'), "quantity" => $this->input->post('quantity'));
 		$this->Cart->add_to_cart($order_data);
 		$this->load->view('/carts/info');
+	}
+
+	public function checkout()
+	{
+		// $products = $this->Cart->display_cart($this->session->userdata('id'));
+		// $user_data = $this->input->post();
+		// $this->Cart->checkout($products, $user_data);
+		$this->load->view('/carts/success');
 	}
 
 }
