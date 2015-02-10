@@ -8,10 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        // page_nav_handler();
-        // page_num_handler();
-        // filter_form_handler();
-        $(document).on('click', '.page-nav', function(){
+        $('.page-nav').on('click', function(){
           var current_page = parseInt($('#page_num').attr('value'));
           if($(this).text() == 'first')
           {
@@ -26,7 +23,7 @@
           }
           else if($(this).text() == 'prev')
           {
-            // if(!(current_page - 1 < 1))
+            if(!(current_page - 1 < 1))
             {
               $('#page_num').attr('value', current_page - 1);
             }
@@ -35,12 +32,15 @@
           {
             $('#page_num').attr('value', current_page);
           }
-          // $('#filterForm').submit();
         });
 
         $(document).on('click', '.page_num', function(){
           $('#page_num').attr('value', $(this).text());
-          // $('#filterForm').submit();
+        });
+
+        $(document).on('click', '.category', function(){
+          console.log($(this));
+          $('#category').attr('value', $(this).text().split(" ")[0]);       
         });
 
         $(document).on('submit', '#filterForm', function(){
@@ -165,13 +165,20 @@
             <input type="hidden" name="action" value="product_search">
           </form>
           <h5>Categories</h5>
-          <ul id="categories">
-            <li class="btn-link"><a href="#">Tshirts (25)</a></li>
+<!--           <ul id="categories"> -->
+<!--             <li class="btn-link"><a href="#">Tshirts (25)</a></li>
             <li class="btn-link"><a href="#">Shoes (35)</a></li>
             <li class="btn-link"><a href="#">Cups (5)</a></li>
             <li class="btn-link"><a href="#">Fruits (105)</a></li>
-            <li class="btn-link"><a style="font-style:italic" href="#">Show All</a></li>
-          </ul>
+            <li class="btn-link"><a style="font-style:italic" href="#">Show All</a></li> -->
+<?php 
+            foreach($categories_count as $category_count)
+            {
+?>             <p class='category'><?= $category_count['name']; ?> (<?= $category_count['count']; ?>)</p>
+<?php       }
+?>
+          <!-- </ul> -->
+          <p>Show All</p>
         </div>
       </div>
     <!-- <div id="sidebar"> -->
@@ -197,7 +204,7 @@
                 </select>
               </p>
               <input id="page_num" type="hidden" name="page_num" value="<?= $page_num; ?>">
-              <input type="hidden" name="categories" value="show_all">
+              <input id="category" type="hidden" name="category" value="<?= $category; ?>">
               <input type="submit" value="Submit">
             </form>
           </div>
@@ -209,7 +216,7 @@
               { 
 ?>
               <div class="product">
-                <img src="<?= $product['url']; ?>" alt="item_image">
+                <a href="/products/show/<?= $product['id']; ?>"><img src="<?= $product['url']; ?>" alt="item_image"></a>
                 <p><?= $product['name']; ?></p>
                 <p><?= $product['price']; ?></p>
               </div>
