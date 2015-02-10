@@ -29,7 +29,7 @@ class Products extends CI_Controller {
   }
   public function show($id)
   {
-    $this->load->view('products/info');
+    $this->load->view('products/info', array("product_id"=>$id));
   }
 }
 
