@@ -47,7 +47,25 @@
       {
         text-align: right;
       }
+      .exp {
+        width:60px;
+      }
+      th {
+        background-color:lightgrey;
+      }
     </style>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+
+      // Disables billing inputs when checked
+      $('#checkbox').on('change', function() {
+        $('.billing').attr('disabled','disabled');
+      });
+
+    });
+
+    </script>
   </head>
   <body>
     <!-- <?php //var_dump($products) ?> -->
@@ -145,29 +163,30 @@
             Zipcode: <input type="text" name="shipping_zipcode" value="94041">
           <h2>Billing Information</h2>
           <label>
-            <input type="checkbox" name="same_as" value="checked">
+            <input id="checkbox" type="checkbox" name="same_as" value="checked">
             Same as Shipping
           </label>
           <br>
-            First Name: <input type="text" name="billing_first_name">
+            First Name: <input class="billing" type="text" name="billing_first_name">
             <br>
-            Last Name: <input type="text" name="billing_last_name">
+            Last Name: <input class="billing" type="text" name="billing_last_name">
             <br>
-            Address: <input type="text" name="billing_address_1">
+            Address: <input class="billing" type="text" name="billing_address_1">
             <br>
-            Address 2: <input type="text" name="billing_address_2">
+            Address 2: <input class="billing" type="text" name="billing_address_2">
             <br>
-            City: <input type="text" name="billing_city">
+            City: <input class="billing" type="text" name="billing_city">
             <br>
-            State: <input type="text" name="billing_state">
+            State: <input class="billing" type="text" name="billing_state">
             <br>
-            Zipcode: <input type="text" name="billing_zipcode">
+            Zipcode: <input class="billing" type="text" name="billing_zipcode">
             <br>
-            Card: <input type="text" name="billing_card">
+            Card: <input class="card" type="text" name="billing_card">
             <br>
-            Security Code: <input type="text" name="billing_security_code">
+            Security Code: <input class="card" type="text" name="billing_security_code">
             <br>
-            Card: <input type="text" name="billing_card">
+            Expiration: <input class="exp" type="text" name="month" placeholder="(mm)"> /
+            <input class="exp" type="text" name="year" placeholder="(year)">
             <br>
             <input type="hidden" name="total" value= <?= '"'.$total.'"' ?>>
             <input class="btn btn-primary" type="submit" value="Pay">
