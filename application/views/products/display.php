@@ -204,21 +204,6 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-<<<<<<< HEAD
-        <?php
-          for ($i=1;$i<16;$i++)
-          {
-            if ($i%6 == 0) { ?>
-              <div class="space"></div>
-      <?php } ?>
-
-              <div class="products">
-                <a href="/products/show/"><img src="http://questmartialarts.us/questmedia/2012/04/black-belt-club.gif"></a>
-                <p>Black Belt</p>
-              </div>
-      <?php }
-        ?>      
-=======
 <?php
               foreach($all_products[0] as $product)
               { 
@@ -230,7 +215,6 @@
               </div>
 <?php         }
 ?>      
->>>>>>> products-display
           </div>
         </div>
         <div class="space"></div>
