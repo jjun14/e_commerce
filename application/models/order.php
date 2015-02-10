@@ -16,6 +16,13 @@ class Order extends CI_Model
               ORDER by orders.id DESC";
     return $this->db->query($query)->result_array();
   }
+  public function update_status($post)
+  {
+    $query = "UPDATE orders
+              SET status = ?, updated_at = NOW()
+              WHERE id = ?";
+    return $this->db->query($query, array($post['status'], $post['order_id']));
+  }
 }
 
 ?>

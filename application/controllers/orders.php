@@ -6,12 +6,18 @@ class Orders extends CI_Controller {
 	{
 		parent::__construct();
 		$this->output->enable_profiler();
+    $this->load->model('Order');
 	}
 
 	public function show()
 	{
 		$this->load->view('orders/show');
 	}
+  public function update()
+  {
+    $this->Order->update_status($this->input->post());
+    redirect('/dashboards/orders');
+  }
 }
 
 //end of orders controller

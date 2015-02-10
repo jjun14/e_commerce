@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script "text/javascript">
+      $(document).ready(function(){
+        $(document).on('change', 'select', function(){
+          $(this).parent().submit();
+        });
+      });
+    </script>
     <style type="text/css">
 
       .navbar-custom 
@@ -130,7 +137,17 @@
                   <td><?= $order['date']; ?></td>
                   <td><?= $order['address']; ?></td>
                   <td><?= $order['total']; ?></td>
-                  <td><?= $order['status']; ?></td>
+                  <td>
+                    <form action="/orders/update/" method="post">
+                      <select name="status" id="">
+                        <option value="" disabled selected><?= $order['status']; ?></option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Order in process">Order in process</option>
+                        <option value="Cancelled">Cancelled</option>
+                      </select>
+                      <input type="hidden" name="order_id" value="<?= $order['id']; ?>">
+                    </form>
+                  </td>
                 </tr>
 <?php         } 
 ?>                   
