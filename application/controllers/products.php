@@ -30,6 +30,11 @@ class Products extends CI_Controller {
   public function show($id)
   {
     $this->load->view('products/info', array("product_id"=>$id));
+    $product = $this->Product->get_product($id);
+    $similar = $this->Product->get_similar_products($product['id'], $product['categories_id']);
+    var_dump($product);
+    var_dump($similar);
+    $this->load->view('products/info', array('product'=>$product, 'similar'=>$similar));
   }
 }
 

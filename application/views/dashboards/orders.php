@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script "text/javascript">
+      $(document).ready(function(){
+        $(document).on('change', 'select', function(){
+          $(this).parent().submit();
+        });
+      });
+    </script>
     <style type="text/css">
 
       .navbar-custom 
@@ -85,7 +92,7 @@
             <li><a href="/dashboards/products">Products</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/admins/index">Log Off</a></li>
+            <li><a href="/admin/log_off">Log Off</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -121,96 +128,29 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><a href="/orders/show">100</a></td>
-                <td>Michael Choi</td>
-                <td>2/7/2015</td>
-                <td>1982 Zanker Road San Jose, CA 95112</td>
-                <td>$149.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">4</a></td>
-                <td>Jimmy Jun</td>
-                <td>2/8/2015</td>
-                <td>1 Zanker Road San Jose, CA 95112</td>
-                <td>$9.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">6</a></td>
-                <td>Matt Rutledge</td>
-                <td>2/9/2015</td>
-                <td>2 Zanker Road San Jose, CA 95112</td>
-                <td>$159.99</td>
-                <td>
-                  <form action="" method="post">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">46</a></td>
-                <td>Andrew Lee</td>
-                <td>2/10/2015</td>
-                <td>82 Zanker Road San Jose, CA 95112</td>
-                <td>$249.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">99</a></td>
-                <td>Rory Pasley</td>
-                <td>2/11/2015</td>
-                <td>98 Zanker Road San Jose, CA 95112</td>
-                <td>$49.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>                           
+<?php 
+              foreach($orders as $order)
+              { 
+?>              <tr>
+                  <td><?= $order['id']; ?></td>
+                  <td><?= $order['name']; ?></td>
+                  <td><?= $order['date']; ?></td>
+                  <td><?= $order['address']; ?></td>
+                  <td><?= $order['total']; ?></td>
+                  <td>
+                    <form action="/orders/update/" method="post">
+                      <select name="status" id="">
+                        <option value="" disabled selected><?= $order['status']; ?></option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Order in process">Order in process</option>
+                        <option value="Cancelled">Cancelled</option>
+                      </select>
+                      <input type="hidden" name="order_id" value="<?= $order['id']; ?>">
+                    </form>
+                  </td>
+                </tr>
+<?php         } 
+?>                   
             </tbody>
           </table>
         </div>
