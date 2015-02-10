@@ -12,30 +12,30 @@
           var current_page = parseInt($('#page_num').attr('value'));
           if($(this).text() == 'first')
           {
-            $('#page_num').attr('value', 1);
+            $('.page_number').attr('value', 1);
           }
           else if($(this).text() == 'next')
           {
             if(!($(".pagination li").length - 2 < current_page + 1))
             {
-              $('#page_num').attr('value', current_page + 1);
+              $('.page_number').attr('value', current_page + 1);
             }
           }
           else if($(this).text() == 'prev')
           {
             if(!(current_page - 1 < 1))
             {
-              $('#page_num').attr('value', current_page - 1);
+              $('.page_number').attr('value', current_page - 1);
             }
           }
           else 
           {
-            $('#page_num').attr('value', current_page);
+            $('.page_number').attr('value', current_page);
           }
         });
 
         $(document).on('click', '.page_num', function(){
-          $('#page_num').attr('value', $(this).text());
+          $('.page_number').attr('value', $(this).text());
         });
 
         $(document).on('click', '.category', function(){
@@ -48,7 +48,7 @@
           {
             $('#category').attr('value', $(this).text().split(" ")[0]);
           }
-          $('#page_num').attr('value', 1);   
+          $('.page_number').attr('value', 1);   
         });
 
         $(document).on('submit', '#filterForm', function(){
@@ -121,7 +121,6 @@
       list-style-type: none;
     }
     form ul li{
-      border-left:solid black 2px;
       padding:0px 10px;
       display: inline-block;
     }
@@ -171,10 +170,10 @@
     <div class="container-fluid">
       <div class="col-md-3">
         <div id="sidebar" class="col-md-3">
-          <form action="#" method="post">
+          <form action="/products/get_products/" method="post">
             <input type="text" name="product_name" placeholder="product name.">
             <input type="submit" value="?">
-            <input type="hidden" name="action" value="product_search">
+            <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
           </form>
           <h5>Categories</h5>
 <?php 
@@ -209,7 +208,7 @@
                   <option value="Most Popular">Most Popular</option>
                 </select>
               </p>
-              <input id="page_num" type="hidden" name="page_num" value="<?= $page_num; ?>">
+              <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
               <input id="category" type="hidden" name="category" value="<?= $category; ?>">
               <input type="submit" value="Submit">
             </form>
