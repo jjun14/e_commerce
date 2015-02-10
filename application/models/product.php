@@ -11,34 +11,41 @@ class Product extends CI_Model
   function get_all_products($post)
   {
     $offset = 15 * ($post['page_num'] - 1);
-    if($post['category'] == "show_all")
+    if($post['sort_by'] == 'Price')
     {
-      $count = $this->db->query("SELECT count(products.id) AS num_products FROM products")->row_array();
-      $query = "SELECT products.id, products.name, price, url FROM products
-                LEFT JOIN categories on categories_id = categories.id
-                LEFT JOIN images ON products.id = images.product_id
-                LEFT JOIN image_types ON image_type_id = image_types.id
-                ORDER BY price ASC
-                LIMIT 15 OFFSET ?";
-      $all_products = array($this->db->query($query, $offset)->result_array(), $count['num_products']);
-      return $all_products;
+      if($post['category'] == "show_all")
+      {
+        $count = $this->db->query("SELECT count(products.id) AS num_products FROM products")->row_array();
+        $query = "SELECT products.id, products.name, price, url FROM products
+                  LEFT JOIN categories on categories_id = categories.id
+                  LEFT JOIN images ON products.id = images.product_id
+                  LEFT JOIN image_types ON image_type_id = image_types.id
+                  ORDER BY price ASC
+                  LIMIT 15 OFFSET ?";
+        $all_products = array($this->db->query($query, $offset)->result_array(), $count['num_products']);
+        return $all_products;
+      }
+      else
+      { 
+        $count = $this->db->query("SELECT count(products.id) AS num_products FROM products
+                                   LEFT JOIN categories ON categories.id = categories_id
+                                   LEFT JOIN images ON products.id = images.product_id
+                                   LEFT JOIN image_types ON image_type_id = image_types.id
+                                   WHERE categories.name LIKE (?)", $post['category'])->row_array();
+        $query = "SELECT products.id, products.name, price, url FROM products
+                  LEFT JOIN categories ON categories.id = categories_id
+                  LEFT JOIN images ON products.id = images.product_id
+                  LEFT JOIN image_types ON image_type_id = image_types.id
+                  WHERE categories.name LIKE (?)
+                  ORDER BY price ASC
+                  LIMIT 15 OFFSET ?";
+        $all_products = array($this->db->query($query, array($post['category'], $offset))->result_array(), $count['num_products']);
+        return $all_products;
+      }
     }
-    else
-    { 
-      $count = $this->db->query("SELECT count(products.id) AS num_products FROM products
-                                 LEFT JOIN categories ON categories.id = categories_id
-                                 LEFT JOIN images ON products.id = images.product_id
-                                 LEFT JOIN image_types ON image_type_id = image_types.id
-                                 WHERE categories.name LIKE (?)", $post['category'])->row_array();
-      $query = "SELECT products.id, products.name, price, url FROM products
-                LEFT JOIN categories ON categories.id = categories_id
-                LEFT JOIN images ON products.id = images.product_id
-                LEFT JOIN image_types ON image_type_id = image_types.id
-                WHERE categories.name LIKE (?)
-                ORDER BY price ASC
-                LIMIT 15 OFFSET ?";
-      $all_products = array($this->db->query($query, array($post['category'], $offset))->result_array(), $count['num_products']);
-      return $all_products;
+    else if($post['sort_by'] == 'Most Popular')
+    {
+      echo "popular";
     }
   }
   function get_categories_count()

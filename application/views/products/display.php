@@ -40,7 +40,15 @@
 
         $(document).on('click', '.category', function(){
           console.log($(this));
-          $('#category').attr('value', $(this).text().split(" ")[0]);       
+          if($(this).text() == "Show All")
+          {
+            $('#category').attr('value', 'show_all');
+          }
+          else
+          {
+            $('#category').attr('value', $(this).text().split(" ")[0]);
+          }
+          $('#page_num').attr('value', 1);   
         });
 
         $(document).on('submit', '#filterForm', function(){
@@ -127,6 +135,10 @@
     #pagination a {
       text-decoration: underline;
     }
+    .page-nav, .page-num, li, .category
+    {
+      cursor: pointer;
+    }
     .pages {
       text-align: center;
     }
@@ -178,7 +190,7 @@
 <?php       }
 ?>
           <!-- </ul> -->
-          <p>Show All</p>
+          <p class='category'>Show All</p>
         </div>
       </div>
     <!-- <div id="sidebar"> -->
@@ -199,8 +211,8 @@
               </ul>
               <p>Sorted by 
                 <select name="sort_by">
-                  <option value="price">Price</option>
-                  <option value="most_popular">Most Popular</option>
+                  <option value="Price">Price</option>
+                  <option value="Most Popular">Most Popular</option>
                 </select>
               </p>
               <input id="page_num" type="hidden" name="page_num" value="<?= $page_num; ?>">
