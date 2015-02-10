@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 class Product extends CI_Model 
@@ -11,8 +10,6 @@ class Product extends CI_Model
 	}
 
 }
-=======
-<?php 
 
   class Product extends CI_Model
   {
@@ -32,6 +29,4 @@ class Product extends CI_Model
       // die();
     }
   }
->>>>>>> products-display
-
 ?>
