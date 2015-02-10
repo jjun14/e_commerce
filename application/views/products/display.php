@@ -6,6 +6,57 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // page_nav_handler();
+        // page_num_handler();
+        // filter_form_handler();
+        $(document).on('click', '.page-nav', function(){
+          var current_page = parseInt($('#page_num').attr('value'));
+          if($(this).text() == 'first')
+          {
+            $('#page_num').attr('value', 1);
+          }
+          else if($(this).text() == 'next')
+          {
+            if(!($(".pagination li").length - 2 < current_page + 1))
+            {
+              $('#page_num').attr('value', current_page + 1);
+            }
+          }
+          else if($(this).text() == 'prev')
+          {
+            // if(!(current_page - 1 < 1))
+            {
+              $('#page_num').attr('value', current_page - 1);
+            }
+          }
+          else 
+          {
+            $('#page_num').attr('value', current_page);
+          }
+          // $('#filterForm').submit();
+        });
+
+        $(document).on('click', '.page_num', function(){
+          $('#page_num').attr('value', $(this).text());
+          // $('#filterForm').submit();
+        });
+
+        $(document).on('submit', '#filterForm', function(){
+          $.ajax({
+            type: "POST",
+            url: "products/get_products",
+            data: $(this).serialize(),
+            datatype: "JSON"
+          })
+            .done(function(response){
+              $('body').html(response);
+            });
+          return false;
+        });
+      });
+    </script>
     <style type="text/css">
     .navbar, .navbar a {
       background:black;
@@ -40,8 +91,8 @@
       border:3px solid black;
       margin:3px 3px 3px 3px;
       display: inline-block;
-      height:115px;
-      width:115px;
+      height:150px;
+      width:150px;
     }
     .products {
       margin:20px;
@@ -49,10 +100,19 @@
       height:115px;
       width: 115px;
     }
+    .product
+    {
+      display: inline-block;
+      margin-right: 10px;
+    }
     .space {
       height:30px;
     }
-    #italics li{
+    form ul 
+    {
+      list-style-type: none;
+    }
+    form ul li{
       border-left:solid black 2px;
       padding:0px 10px;
       display: inline-block;
@@ -120,15 +180,15 @@
       <div id="display" class="col-md-9">
         <div class="row">
           <div class="col-md-4">
-           <h3>Tshirts (page 2)</h3>
+           <h3>All Products(page <?= $page_num; ?>)</h3>
           </div>
           <div class="col-md-4 col-md-offset-3">
-            <form action="">
-              <ul id="italics">
-                <li>first</li>
-                <li>prev</li>
-                <li>2</li>
-                <li>next</li>
+            <form id="filterForm" action="/products/get_products/" method="post">
+              <ul>
+                <li class="btn-link page-nav">first</li>
+                <li class="btn-link page-nav">prev</li>
+                <li class="btn-link page-nav"><?= $page_num; ?></li>
+                <li class="btn-link page-nav">next</li>
               </ul>
               <p>Sorted by 
                 <select name="sort_by">
@@ -136,11 +196,15 @@
                   <option value="most_popular">Most Popular</option>
                 </select>
               </p>
+              <input id="page_num" type="hidden" name="page_num" value="<?= $page_num; ?>">
+              <input type="hidden" name="categories" value="show_all">
+              <input type="submit" value="Submit">
             </form>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
+<<<<<<< HEAD
         <?php
           for ($i=1;$i<16;$i++)
           {
@@ -154,6 +218,19 @@
               </div>
       <?php }
         ?>      
+=======
+<?php
+              foreach($all_products[0] as $product)
+              { 
+?>
+              <div class="product">
+                <img src="<?= $product['url']; ?>" alt="item_image">
+                <p><?= $product['name']; ?></p>
+                <p><?= $product['price']; ?></p>
+              </div>
+<?php         }
+?>      
+>>>>>>> products-display
           </div>
         </div>
         <div class="space"></div>
@@ -162,29 +239,33 @@
             <nav>
               <ul class="pagination">
                 <li>
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                  <a disabled='true' aria-label="Previous">
+                    <span class='page-nav' aria-hidden="true">prev</span>
                   </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+<?php           
+                $count = 1;
+                for($i = 0; $i < $all_products[1]; $i++)
+                {
+                  if($i % 15 == 0)
+                  { 
+?>
+                    <li ><a class='page_num' disabled='true'><?= $count; ?></a></li>
+<?php             
+                    $count++;
+                  }
+                }
+?>
                 <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                  <a disabled='true' aria-label="Next">
+                    <span class='page-nav' aria-hidden="true">next</span>
                   </a>
                 </li>
               </ul>
             </nav>
-          </div>
-        </div>
-      </div>
-
-
-    
-
+          </div><!-- .col-md-6 .col-md-offset-3 -->
+        </div><!-- .row -->
+      </div><!-- .col-md-9 -->
     </div><!-- container-fluid -->
   </body>
 </html>

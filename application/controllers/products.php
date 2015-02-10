@@ -6,19 +6,23 @@ class Products extends CI_Controller {
 	{
 		parent::__construct();
 		// $this->output->enable_profiler();
+    $this->load->Model('Product');
 	}
 
 	public function index()
 	{
-		$this->load->view('/products/display');
+    $all_products = $this->Product->get_all_products(1);
+    // var_dump($all_products);
+    // die();
+		$this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>1));
 	}
-	
-  public function show($id)
+  public function get_products()
   {
-  	$array = array("product_id" => $id);
-    $this->load->view('/products/info', $array);
+    // var_dump($this->input->post());
+    // die();
+    $all_products = $this->Product->get_all_products($this->input->post('page_num'));
+    $this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>$this->input->post('page_num')));
   }
-
 }
 
 //end of main controller
