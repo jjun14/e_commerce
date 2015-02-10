@@ -14,7 +14,9 @@ class Dashboards extends CI_Controller {
 
   public function orders()
   {
-    $this->load->view('/dashboards/orders');
+    $this->load->model('Order');
+    $orders = $this->Order->get_all_orders();
+    $this->load->view('/dashboards/orders', array('orders'=>$orders));
   }
 	public function products()
 	{

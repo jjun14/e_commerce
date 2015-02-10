@@ -121,96 +121,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><a href="/orders/show">100</a></td>
-                <td>Michael Choi</td>
-                <td>2/7/2015</td>
-                <td>1982 Zanker Road San Jose, CA 95112</td>
-                <td>$149.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">4</a></td>
-                <td>Jimmy Jun</td>
-                <td>2/8/2015</td>
-                <td>1 Zanker Road San Jose, CA 95112</td>
-                <td>$9.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">6</a></td>
-                <td>Matt Rutledge</td>
-                <td>2/9/2015</td>
-                <td>2 Zanker Road San Jose, CA 95112</td>
-                <td>$159.99</td>
-                <td>
-                  <form action="" method="post">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">46</a></td>
-                <td>Andrew Lee</td>
-                <td>2/10/2015</td>
-                <td>82 Zanker Road San Jose, CA 95112</td>
-                <td>$249.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="/orders/show">99</a></td>
-                <td>Rory Pasley</td>
-                <td>2/11/2015</td>
-                <td>98 Zanker Road San Jose, CA 95112</td>
-                <td>$49.99</td>
-                <td>
-                  <form action="">
-                    <div class="input-group">
-                      <select class="form-control" name="order_status">
-                        <option>Shipped</option>
-                        <option>Order In Process</option>
-                        <option>Cancelled</option>
-                      </select>            
-                    </div>
-                  </form>
-                </td>
-              </tr>                           
+<?php 
+              foreach($orders as $order)
+              { 
+?>              <tr>
+                  <td><?= $order['id']; ?></td>
+                  <td><?= $order['name']; ?></td>
+                  <td><?= $order['date']; ?></td>
+                  <td><?= $order['address']; ?></td>
+                  <td><?= $order['total']; ?></td>
+                  <td><?= $order['status']; ?></td>
+                </tr>
+<?php         } 
+?>                   
             </tbody>
           </table>
         </div>
