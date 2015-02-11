@@ -1,292 +1,384 @@
--- MySQL Workbench Forward Engineering
+-- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
+--
+-- Host: 127.0.0.1    Database: e_commerce
+-- ------------------------------------------------------
+-- Server version	5.5.38
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema e_commerce
--- -----------------------------------------------------
+--
+-- Table structure for table `billings`
+--
 
--- -----------------------------------------------------
--- Schema e_commerce
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `e_commerce` DEFAULT CHARACTER SET utf8 ;
-USE `e_commerce` ;
-
--- -----------------------------------------------------
--- Table `e_commerce`.`billings`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`billings` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(255) NULL DEFAULT NULL,
-  `last_name` VARCHAR(255) NULL DEFAULT NULL,
-  `address_1` VARCHAR(255) NULL DEFAULT NULL,
-  `address_2` VARCHAR(255) NULL DEFAULT NULL,
-  `city` VARCHAR(255) NULL DEFAULT NULL,
-  `state` VARCHAR(255) NULL DEFAULT NULL,
-  `zipcode` VARCHAR(12) NULL DEFAULT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `billings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `billings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `address_1` varchar(255) DEFAULT NULL,
+  `address_2` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `zipcode` varchar(12) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_billings_zipcodes1_idx` (`zipcode` ASC),
-  INDEX `fk_billings_states1_idx` (`state` ASC),
-  INDEX `fk_billings_cities1_idx` (`city` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 12
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_billings_zipcodes1_idx` (`zipcode`),
+  KEY `fk_billings_states1_idx` (`state`),
+  KEY `fk_billings_cities1_idx` (`city`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `billings`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`user_privileges`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`user_privileges` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `privilege` VARCHAR(255) NULL DEFAULT NULL,
-  `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+LOCK TABLES `billings` WRITE;
+/*!40000 ALTER TABLE `billings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `billings` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `carts`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`users` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(255) NULL DEFAULT NULL,
-  `last_name` VARCHAR(255) NULL DEFAULT NULL,
-  `email` VARCHAR(255) NULL DEFAULT NULL,
-  `password` VARCHAR(255) NULL DEFAULT NULL,
-  `user_privilege_id` INT(11) NULL DEFAULT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `carts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `carts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_users_user_privileges1_idx` (`user_privilege_id` ASC),
-  CONSTRAINT `fk_users_user_privileges1`
-    FOREIGN KEY (`user_privilege_id`)
-    REFERENCES `e_commerce`.`user_privileges` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_carts_users1_idx` (`user_id`),
+  CONSTRAINT `fk_carts_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `carts`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`carts`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`carts` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NOT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
+LOCK TABLES `carts` WRITE;
+/*!40000 ALTER TABLE `carts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `carts_have_products`
+--
+
+DROP TABLE IF EXISTS `carts_have_products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `carts_have_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_qty` int(11) DEFAULT NULL,
+  `cart_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_carts_users1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_carts_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `e_commerce`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 11
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_carts_has_products_products1_idx` (`product_id`),
+  KEY `fk_carts_has_products_carts1_idx` (`cart_id`),
+  CONSTRAINT `fk_carts_has_products_carts1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_carts_has_products_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `carts_have_products`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`categories`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`categories` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8;
+LOCK TABLES `carts_have_products` WRITE;
+/*!40000 ALTER TABLE `carts_have_products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carts_have_products` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `categories`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`products`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`products` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `price` FLOAT NULL DEFAULT NULL,
-  `inventory` INT(11) NULL DEFAULT NULL,
-  `category_id` INT(11) NOT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `image_types`
+--
+
+DROP TABLE IF EXISTS `image_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image_type` varchar(45) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image_types`
+--
+
+LOCK TABLES `image_types` WRITE;
+/*!40000 ALTER TABLE `image_types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
+  `image_type_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_products_categories1_idx1` (`category_id` ASC),
-  CONSTRAINT `fk_products_categories1`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `e_commerce`.`categories` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_images_products_idx` (`product_id`),
+  KEY `fk_images_image_types1_idx` (`image_type_id`),
+  CONSTRAINT `fk_images_image_types1` FOREIGN KEY (`image_type_id`) REFERENCES `image_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_images_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `images`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`carts_have_products`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`carts_have_products` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `product_qty` INT(11) NULL DEFAULT NULL,
-  `cart_id` INT(11) NOT NULL,
-  `product_id` INT(11) NOT NULL,
-  `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `total` float DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `shipping_id` int(11) NOT NULL,
+  `billing_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_carts_has_products_products1_idx` (`product_id` ASC),
-  INDEX `fk_carts_has_products_carts1_idx` (`cart_id` ASC),
-  CONSTRAINT `fk_carts_has_products_carts1`
-    FOREIGN KEY (`cart_id`)
-    REFERENCES `e_commerce`.`carts` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_carts_has_products_products1`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `e_commerce`.`products` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 57
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_orders_users1_idx` (`user_id`),
+  KEY `fk_orders_shippings1_idx` (`shipping_id`),
+  KEY `fk_orders_billings1_idx` (`billing_id`),
+  CONSTRAINT `fk_orders_billings1` FOREIGN KEY (`billing_id`) REFERENCES `billings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orders_shippings1` FOREIGN KEY (`shipping_id`) REFERENCES `shippings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orders_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `orders`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`image_types`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`image_types` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `image_type` VARCHAR(45) NULL DEFAULT NULL,
-  `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `orders_have_products`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`images`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`images` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `url` VARCHAR(255) NULL DEFAULT NULL,
-  `product_id` INT(11) NOT NULL,
-  `image_type_id` INT(11) NOT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `orders_have_products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders_have_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_qty` int(11) DEFAULT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_images_products_idx` (`product_id` ASC),
-  INDEX `fk_images_image_types1_idx` (`image_type_id` ASC),
-  CONSTRAINT `fk_images_image_types1`
-    FOREIGN KEY (`image_type_id`)
-    REFERENCES `e_commerce`.`image_types` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_images_products`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `e_commerce`.`products` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_orders_has_products_products1_idx` (`product_id`),
+  KEY `fk_orders_has_products_orders1_idx` (`order_id`),
+  CONSTRAINT `fk_orders_has_products_orders1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orders_has_products_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `orders_have_products`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`shippings`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`shippings` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(255) NULL DEFAULT NULL,
-  `last_name` VARCHAR(255) NULL DEFAULT NULL,
-  `address_1` VARCHAR(255) NULL DEFAULT NULL,
-  `address_2` VARCHAR(255) NULL DEFAULT NULL,
-  `city` VARCHAR(255) NULL DEFAULT NULL,
-  `state` VARCHAR(255) NULL DEFAULT NULL,
-  `zipcode` VARCHAR(12) NULL DEFAULT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 12
-DEFAULT CHARACTER SET = utf8;
+LOCK TABLES `orders_have_products` WRITE;
+/*!40000 ALTER TABLE `orders_have_products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders_have_products` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `products`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`orders`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`orders` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `total` FLOAT NULL DEFAULT NULL,
-  `status` VARCHAR(255) NULL DEFAULT NULL,
-  `user_id` INT(11) NOT NULL,
-  `shipping_id` INT(11) NOT NULL,
-  `billing_id` INT(11) NOT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  `updated_at` DATETIME NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text,
+  `price` float DEFAULT NULL,
+  `inventory` int(11) DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_orders_users1_idx` (`user_id` ASC),
-  INDEX `fk_orders_shippings1_idx` (`shipping_id` ASC),
-  INDEX `fk_orders_billings1_idx` (`billing_id` ASC),
-  CONSTRAINT `fk_orders_billings1`
-    FOREIGN KEY (`billing_id`)
-    REFERENCES `e_commerce`.`billings` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orders_shippings1`
-    FOREIGN KEY (`shipping_id`)
-    REFERENCES `e_commerce`.`shippings` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orders_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `e_commerce`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 16
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_products_categories1_idx1` (`category_id`),
+  CONSTRAINT `fk_products_categories1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `products`
+--
 
--- -----------------------------------------------------
--- Table `e_commerce`.`orders_have_products`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce`.`orders_have_products` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `product_qty` INT(11) NULL DEFAULT NULL,
-  `order_id` INT(11) NOT NULL,
-  `product_id` INT(11) NOT NULL,
-  `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shippings`
+--
+
+DROP TABLE IF EXISTS `shippings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shippings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `address_1` varchar(255) DEFAULT NULL,
+  `address_2` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `zipcode` varchar(12) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shippings`
+--
+
+LOCK TABLES `shippings` WRITE;
+/*!40000 ALTER TABLE `shippings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shippings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_privileges`
+--
+
+DROP TABLE IF EXISTS `user_privileges`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_privileges` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `privilege` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_privileges`
+--
+
+LOCK TABLES `user_privileges` WRITE;
+/*!40000 ALTER TABLE `user_privileges` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_privileges` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `user_privilege_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_orders_has_products_products1_idx` (`product_id` ASC),
-  INDEX `fk_orders_has_products_orders1_idx` (`order_id` ASC),
-  CONSTRAINT `fk_orders_has_products_orders1`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `e_commerce`.`orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orders_has_products_products1`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `e_commerce`.`products` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 11
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_users_user_privileges1_idx` (`user_privilege_id`),
+  CONSTRAINT `fk_users_user_privileges1` FOREIGN KEY (`user_privilege_id`) REFERENCES `user_privileges` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `users`
+--
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-02-11 11:22:23
