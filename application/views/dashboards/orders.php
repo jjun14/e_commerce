@@ -9,8 +9,36 @@
     <script "text/javascript">
       $(document).ready(function(){
         $(document).on('change', 'select', function(){
+          $('.page_number').attr('value', 1);
           $(this).parent().submit();
         });
+
+        $('.page-nav').on('click', function(){
+          var current_page = parseInt($('.page_number').attr('value'));
+          if($(this).text() == 'next')
+          {
+            if(!($(".pagination li").length - 2 < current_page + 1))
+            {
+              $('.page_number').attr('value', current_page + 1);
+            }
+          }
+          else if($(this).text() == 'prev')
+          {
+            if(!(current_page - 1 < 1))
+            {
+              $('.page_number').attr('value', current_page - 1);
+            }
+          }
+          else 
+          {
+            $('.page_number').attr('value', current_page);
+          }
+        });
+
+        $(document).on('click', '.page_num', function(){
+          $('.page_number').attr('value', $(this).text());
+        });
+
       });
     </script>
     <style type="text/css">
@@ -107,11 +135,11 @@
           <div class="input-group col-md-2 col-md-offset-6">
             <select class="form-control" name="order_status">
               <option value="show_all">Show All</option>
-              <option value="order_in_process">Order In Process</option>
-              <option value="shipped">Shipped</option>
+              <option value="Order in process">Order In Process</option>
+              <option value="Shipped">Shipped</option>
             </select>  
           </div>
-          <input type="hidden" name="page_num" value="<?= $page_num; ?>">
+          <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
           <input type="submit" value="submit">
         </form>
       </div>
@@ -148,7 +176,6 @@
                         <option value="Cancelled">Cancelled</option>
                       </select>
                       <input type="hidden" name="order_id" value="<?= $order['id']; ?>">
-                      <input type="hidden" name="page_num" value="<?= $page_num; ?>">
                     </form>
                   </td>
                 </tr>
@@ -164,27 +191,22 @@
             <ul class="pagination">
               <li>
                 <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
+                  <span class="page-nav" aria-hidden="true">prev</span>
                 </a>
               </li>
-<!--               <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li> -->
 <?php         $count = 1;
               for($i = 0; $i < intval($orders[1]); $i++)
               {
                 if($i % 5 == 0)
                 {
-?>                 <li><a href=""><?= $count; ?></a></li>                          
+?>                 <li><a class='page_num' disabled='true'><?= $count; ?></a></li>                          
 <?php              $count++;
                 } 
               }
 ?>
               <li>
                 <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
+                  <span class="page-nav" aria-hidden="true">next</span>
                 </a>
               </li>
             </ul>

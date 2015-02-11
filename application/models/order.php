@@ -2,23 +2,77 @@
 
 class Order extends CI_Model
 {
-  public function get_all_orders($arr)
+  public function get_all_orders($post)
   { 
-    $offset = 5 * ($arr['page_num'] - 1);
-    $count = $this->db->query("SELECT count(orders.id) as num_orders FROM orders")->row_array();
-    $query = "SELECT orders.id,
-              concat_ws(' ', billings.first_name, billings.last_name) AS name,
-              DATE_FORMAT(billings.created_at, '%c/%e/%Y') AS date,
-              concat_ws(' ', billings.address_1, billings.address_2, city_name, state_name, zipcode) AS address,
-              orders.total, orders.status FROM orders
-              LEFT JOIN billings ON billing_id = billings.id
-              LEFT JOIN cities ON cities_id = cities.id
-              LEFT JOIN states ON states_id = states.id
-              LEFT JOIN zipcodes ON zipcodes_id = zipcodes.id
-              ORDER by orders.id DESC
-              LIMIT 5 OFFSET ?";
-    $all_orders = array($this->db->query($query, $offset)->result_array(), $count['num_orders']);
-    return $all_orders;
+    $offset = 5 * ($post['page_num'] - 1);
+    if(isset($post['search']))
+    {
+      // var_dump($post['search']);
+      // die();
+      $like = '%'.$post['search'].'%';
+      $count = $this->db->query("SELECT count(orders.id) as num_orders
+                                 FROM orders
+                                 LEFT JOIN billings ON billing_id = billings.id
+                                 LEFT JOIN cities ON cities_id = cities.id
+                                 LEFT JOIN states ON states_id = states.id
+                                 LEFT JOIN zipcodes ON zipcodes_id = zipcodes.id
+                                 WHERE billings.first_name LIKE (?)
+                                 OR billings.last_name LIKE (?)
+                                 OR concat_ws(' ', billings.address_1, billings.address_2, city_name, state_name, zipcode) LIKE (?)", array($like, $like, $like))->row_array();
+      $query = "SELECT orders.id,
+                concat_ws(' ', billings.first_name, billings.last_name) AS name,
+                DATE_FORMAT(billings.created_at, '%c/%e/%Y') AS date,
+                concat_ws(' ', billings.address_1, billings.address_2, city_name, state_name, zipcode) AS address,
+                orders.total, orders.status FROM orders
+                LEFT JOIN billings ON billing_id = billings.id
+                LEFT JOIN cities ON cities_id = cities.id
+                LEFT JOIN states ON states_id = states.id
+                LEFT JOIN zipcodes ON zipcodes_id = zipcodes.id
+                WHERE billings.id = ?
+                OR billings.first_name LIKE (?)
+                OR billings.last_name LIKE (?)
+                OR concat_ws(' ', billings.address_1, billings.address_2, city_name, state_name, zipcode) LIKE (?)
+                ORDER by orders.id DESC
+                LIMIT 5 OFFSET ?";
+      $all_orders = array($this->db->query($query, array(intval($like),$like, $like, $like, $offset))->result_array(), $count['num_orders']);
+      return $all_orders;
+    }
+    else if($post['order_status'] == 'show_all')
+    {
+      $count = $this->db->query("SELECT count(orders.id) as num_orders FROM orders")->row_array();
+      $query = "SELECT orders.id,
+                concat_ws(' ', billings.first_name, billings.last_name) AS name,
+                DATE_FORMAT(billings.created_at, '%c/%e/%Y') AS date,
+                concat_ws(' ', billings.address_1, billings.address_2, city_name, state_name, zipcode) AS address,
+                orders.total, orders.status FROM orders
+                LEFT JOIN billings ON billing_id = billings.id
+                LEFT JOIN cities ON cities_id = cities.id
+                LEFT JOIN states ON states_id = states.id
+                LEFT JOIN zipcodes ON zipcodes_id = zipcodes.id
+                ORDER by orders.id DESC
+                LIMIT 5 OFFSET ?";
+      $all_orders = array($this->db->query($query, $offset)->result_array(), $count['num_orders']);
+      return $all_orders;
+    }
+    else if($post['order_status'] == 'Shipped' || $post['order_status'] == 'Order in process')
+    {
+      $count = $this->db->query("SELECT count(orders.id) as num_orders FROM orders
+                                 WHERE orders.status = ?", $post['order_status'])->row_array();
+      $query = "SELECT orders.id,
+                concat_ws(' ', billings.first_name, billings.last_name) AS name,
+                DATE_FORMAT(billings.created_at, '%c/%e/%Y') AS date,
+                concat_ws(' ', billings.address_1, billings.address_2, city_name, state_name, zipcode) AS address,
+                orders.total, orders.status FROM orders
+                LEFT JOIN billings ON billing_id = billings.id
+                LEFT JOIN cities ON cities_id = cities.id
+                LEFT JOIN states ON states_id = states.id
+                LEFT JOIN zipcodes ON zipcodes_id = zipcodes.id
+                WHERE orders.status = ?
+                ORDER by orders.id DESC
+                LIMIT 5 OFFSET ?";
+      $all_orders = array($this->db->query($query, array($post['order_status'], $offset))->result_array(), $count['num_orders']);
+      return $all_orders;
+    }
   }
   public function update_status($post)
   {
