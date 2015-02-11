@@ -71,6 +71,10 @@
       .stripe-button-el {
         visibility:hidden;
       }
+      .trash {
+        border:none;
+        background-color:transparent;
+      }
 
     </style>
 
@@ -78,12 +82,6 @@
 
       function validation(name, value)
       {
-
-        console.log("name = " + name + " | value = " + value);
-        var name2 = name.replace(/_/g, " ");
-        console.log(name2);
-        var check = "&#10003";
-
         if (value == "")
         {
           return false;
@@ -96,6 +94,25 @@
 
       $(document).ready(function(){
 
+          var string = "";
+
+        $('.update').click(function(){
+          alert(this);
+          $(this).siblings('div').text(string
+            );
+
+        });
+
+        
+
+        // Disable stripe button
+        $('#stripe button').attr('disabled', 'disabled');
+
+        // Disables billing inputs when checked
+        $('#checkbox').on('change', function() {
+          $('.billing').toggle('slow');
+        });
+
         // Validate inputs on blur
         $(document).on('blur', 'input', function() { 
             console.log($(this).val()); // get the current value of the input field.
@@ -106,12 +123,14 @@
             {
               console.log('failed');
               $(this).addClass('red');
+              $(this).siblings('span').text("")
             }
             else
             {
               console.log('success');
               $(this).removeClass('red');
-              $(this).parent().prepend('<span class="green">&#x2713;</span>')
+              $(this).siblings('span').addClass('green')
+              $(this).siblings('span').text("\u2713")
             }
 
             // Find number of empty inputs remaining
@@ -136,17 +155,9 @@
             }           
         }); // End input blur function
 
-        // Disables billing inputs when checked
-        $('#checkbox').on('change', function() {
-          $('.billing').toggle('slow');
-        });
-
       }); // End document ready function
 
-      // Disables stripe button on load
-      $(window).load(function(){
-        $('button').attr('disabled', 'disabled');
-      });
+      
 
     </script>
   </head>
@@ -168,11 +179,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/carts/index">Shopping Cart (5)</a></li>
+            <li><a href="/carts/index">Shopping Cart <?= "(".$this->session->userdata('cart_qty').")" ?> </a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+
     <!-- End Navbar -->
     <div class="container-fluid">
       <!-- Begining of Item Table -->
@@ -201,22 +213,23 @@
                 // displaying each row of cart data
                 echo 
                 "<tr><td>".$value['name']."</td><td>$".
-                $value['price']."</td><td>".
-                $value['product_qty']."<button class='btn-link'>update</button>
-                <span class='glyphicon glyphicon-trash'></span></td><td>$".
+                $value['price']."</td><td><div class='product_qty'>".
+                $value['product_qty']."</div><button class='update btn-link'>update</button>"?>
+                <form action= <?= '"/carts/delete/'.$value['id'].'"' ?> ><button class="trash"><span class='glyphicon glyphicon-trash'></span></button><input type="hidden" name="product_id" value=<?= '"'.$value['id'].'"' ?> ></form><?=
+                "</td><td>$".
                 ($value['price']*$value['product_qty'])."</td></tr>"; 
 
                 $total += ($value['price']*$value['product_qty']);
                 $names .= "- ".$value['name']." -";
 
-                ?>
-                
-                                
-        <?php } ?>
+              } ?>
+              
             </tbody>
           </table>
         </div><!-- .col-md-12 -->
       </div><!-- .row-fluid -->
+
+
       <div class="row-fluid">
         <div class="col-md-2 col-md-offset-10 total">
           <p>Total: $<?= $total ?></p>
@@ -227,6 +240,19 @@
           </div>
         </div>
       </div>
+
+      <form action='/carts/update_cart/' method='post'>
+        <select name='quantity'>
+          <?php
+            for ($i=1;$i<20;$i++)
+            {
+              echo '<option value="'.$i.'">'.$i.'</option>';
+            }
+          ?>
+        </select>
+        <input type='submit' value='Update'>
+        <input type='hidden' name='product_id' value= '<?= $product['id']; ?>'>
+      </form>
       
       <!-- End of Item Table -->
       <!-- REMOVE BR TAGS LATER -->
@@ -234,42 +260,44 @@
         <div class="col-md-12">
           <h2>Shipping Information</h2>
           <form id="addresses" action="/carts/checkout" method="post">
-            <label>First Name: <input class="shipping" type="text" name="shipping_first_name"></label>
-            <label>Last Name: <input class="shipping" type="text" name="shipping_last_name"></label>
-            <label>Address: <input class="shipping" type="text" name="shipping_address_1"></label>
-            <label>Address 2: <input class="shipping" type="text" name="shipping_address_2"></label>
-            <label>City: <input class="shipping" type="text" name="shipping_city"></label>
-            <label>State: <input class="shipping" type="text" name="shipping_state"></label>
-            <label>Zipcode: <input class="shipping" type="text" name="shipping_zipcode"></label>
+            <label><span></span>First Name: <input class="shipping" type="text" name="shipping_first_name"></label>
+            <label><span></span>Last Name: <input class="shipping" type="text" name="shipping_last_name"></label>
+            <label><span></span>Address: <input class="shipping" type="text" name="shipping_address_1"></label>
+            <label><span></span>Address 2: <input class="shipping" type="text" name="shipping_address_2"></label>
+            <label><span></span>City: <input class="shipping" type="text" name="shipping_city"></label>
+            <label><span></span>State: <input class="shipping" type="text" name="shipping_state"></label>
+            <label><span></span>Zipcode: <input class="shipping" type="text" name="shipping_zipcode"></label>
           <h2>Billing Information</h2>
           <label>
             <input id="checkbox" type="checkbox" name="same_as" value="checked">
             Same as Shipping
           </label>
           <br>
-            <label class="billing" >First Name: <input class="billing" type="text" name="billing_first_name"></label>
-            <label class="billing" >Last Name: <input class="billing" type="text" name="billing_last_name"></label>
-            <label class="billing" >Address: <input class="billing" type="text" name="billing_address_1"></label>
-            <label class="billing" >Address 2: <input class="billing" type="text" name="billing_address_2"></label>
-            <label class="billing" >City: <input class="billing" type="text" name="billing_city"></label>
-            <label class="billing" >State: <input class="billing" type="text" name="billing_state"></label>
-            <label class="billing" >Zipcode: <input type="text" name="billing_zipcode"></label>
+            <label><span></span>First Name: <input class="billing" type="text" name="billing_first_name"></label>
+            <label><span></span>Last Name: <input class="billing" type="text" name="billing_last_name"></label>
+            <label><span></span>Address: <input class="billing" type="text" name="billing_address_1"></label>
+            <label><span></span>Address 2: <input class="billing" type="text" name="billing_address_2"></label>
+            <label><span></span>City: <input class="billing" type="text" name="billing_city"></label>
+            <label><span></span>State: <input class="billing" type="text" name="billing_state"></label>
+            <label><span></span>Zipcode: <input class="billing" type="text" name="billing_zipcode"></label>
             <input type="hidden" name="total" value= <?= '"'.$total.'"' ?>>
           </form>
         </div><!-- .col-md-3 -->
       </div><!-- .row-fluid -->
       <div class="row">
         <div class="col-md-2 ">
-          <form action="" method="POST">
-            <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="pk_test_4cxxj2bkbtLeFbO7ITBmJF0s"
-              data-amount=<?= '"'.($total*100).'"'; ?>
-              data-name="Dojo Magazines"
-              data-description=<?= '"'.$names.'"'; ?>
-              data-image="http://print4vets.com/wp-content/uploads/entrepreneur-magazine-march-2013.jpg">
-            </script>
-          </form>
+          <div id="stripe">
+            <form action="" method="POST">
+              <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_4cxxj2bkbtLeFbO7ITBmJF0s"
+                data-amount=<?= '"'.($total*100).'"'; ?>
+                data-name="Dojo Magazines"
+                data-description=<?= '"'.$names.'"'; ?>
+                data-image="http://print4vets.com/wp-content/uploads/entrepreneur-magazine-march-2013.jpg">
+              </script>
+            </form>
+          </div>
         </div>
       </div>
     </div><!-- .container-fluid -->

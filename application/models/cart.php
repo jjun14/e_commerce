@@ -19,6 +19,7 @@ class Cart extends CI_Model
 			$values = array(date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
 			$this->db->query($query, $values);
 			$this->session->set_userdata('id', $this->db->insert_id());
+			$this->session->set_userdata('cart_qty', "0");
 		}
 
 		// testing whether user has created a cart
@@ -45,23 +46,31 @@ class Cart extends CI_Model
 			$values = array($this->db->insert_id(), $order_data['product_id'], $order_data['quantity']);
 			$this->db->query($query, $values);
 		}
-
 	}
 
 	public function display_cart()
 	{
 		// retrieves data needed for cart display
-		return $this->db->query("SELECT products.id, products.name, products.price, 
-			count(carts_have_products.product_qty) AS product_qty 
+		$query = "SELECT products.id, products.name, products.price, 
+			sum(carts_have_products.product_qty) AS product_qty 
 		FROM users
 		LEFT JOIN carts ON users.id = carts.user_id
 		LEFT JOIN carts_have_products ON carts.id = carts_have_products.cart_id
 		LEFT JOIN products ON products.id = carts_have_products.product_id
-		WHERE users.id = 4
-		GROUP BY products.id")->result_array();
+		WHERE users.id = ?
+		GROUP BY products.id";
+		$values = array($this->session->userdata('id'));
+		return $this->db->query($query, $values)->result_array();
 	}
 
 
+	public function update_cart()
+	{
+		$query = "SELECT sum(product_qty) AS cart_qty FROM carts_have_products LEFT JOIN carts ON cart_id = carts.id WHERE carts.user_id = ?";
+		$values = array($this->session->userdata('id'));
+		$cart_qty = $this->db->query($query, $values)->row_array();
+		$this->session->set_userdata('cart_qty', $cart_qty['cart_qty']);
+	}
 
 	public function edit_product_qty()
 	{
@@ -112,6 +121,23 @@ class Cart extends CI_Model
 			$values = array($order_id, $products[$i]['id'], $products[$i]['product_qty']);
 			$this->db->query($query, $values);
 		}
+	}
+
+	public function delete($product)
+	{
+
+		$query = "SELECT cart_id FROM carts_have_products 
+		LEFT JOIN carts ON carts.id = carts_have_products.cart_id
+		WHERE carts.user_id = ?";
+		$values = array($this->session->userdata('id'));
+		$cart_id = $this->db->query($query, $values)->row_array();
+
+
+		$query = "DELETE FROM carts_have_products WHERE cart_id = ? 
+		AND product_id = ?";
+		$values = array($cart_id['cart_id'], $product['id']);
+		$this->db->query($query, $values);
+
 	}
 }
 

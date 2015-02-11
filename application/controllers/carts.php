@@ -18,6 +18,9 @@ class Carts extends CI_Controller {
 	{
 		$order_data = array("product_id" => $this->input->post('product_id'), "quantity" => $this->input->post('quantity'));
 		$this->Cart->add_to_cart($order_data);
+		$this->Cart->update_cart();
+		$products_in_cart = array("products" => $this->Cart->display_cart($this->session->userdata('id')));
+		$this->load->view('/carts/index', $products_in_cart);
 	}
 
 	public function checkout()
@@ -26,6 +29,17 @@ class Carts extends CI_Controller {
 		$products = $this->Cart->display_cart($this->session->userdata('id'));
 		$user_data = $this->input->post();
 		$this->Cart->checkout($products, $user_data);
+		$this->load->view('/carts/index');
+	}
+
+	public function delete($id)
+	{
+		$product = [];
+		$product['id'] = $id;
+		$this->Cart->delete($product);
+		$this->Cart->update_cart();
+		$products_in_cart = array("products" => $this->Cart->display_cart($this->session->userdata('id')));
+		$this->load->view('/carts/index', $products_in_cart);
 	}
 }
 
