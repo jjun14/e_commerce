@@ -100,9 +100,9 @@
     <div class="container-fluid">
       <!-- Start Search and Filter Form -->
       <div class="row-fluid">
-        <form class="form-inline" action="">
+        <form class="form-inline" action="/dashboards/filter_orders" method="post">
           <div class="input-group col-md-2 col-md-offset-1">
-            <input class="form-control" type="text" placeholder="search">
+            <input class="form-control" name="search" type="text" placeholder="search">
           </div>
           <div class="input-group col-md-2 col-md-offset-6">
             <select class="form-control" name="order_status">
@@ -111,6 +111,8 @@
               <option value="shipped">Shipped</option>
             </select>  
           </div>
+          <input type="hidden" name="page_num" value="<?= $page_num; ?>">
+          <input type="submit" value="submit">
         </form>
       </div>
       <!-- End Search and Filter Form -->
@@ -129,7 +131,7 @@
             </thead>
             <tbody>
 <?php 
-              foreach($orders as $order)
+              foreach($orders[0] as $order)
               { 
 ?>              <tr>
                   <td><?= $order['id']; ?></td>
@@ -146,6 +148,7 @@
                         <option value="Cancelled">Cancelled</option>
                       </select>
                       <input type="hidden" name="order_id" value="<?= $order['id']; ?>">
+                      <input type="hidden" name="page_num" value="<?= $page_num; ?>">
                     </form>
                   </td>
                 </tr>
@@ -164,11 +167,21 @@
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li><a href="#">1</a></li>
+<!--               <li><a href="#">1</a></li>
               <li><a href="#">2</a></li>
               <li><a href="#">3</a></li>
               <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
+              <li><a href="#">5</a></li> -->
+<?php         $count = 1;
+              for($i = 0; $i < intval($orders[1]); $i++)
+              {
+                if($i % 5 == 0)
+                {
+?>                 <li><a href=""><?= $count; ?></a></li>                          
+<?php              $count++;
+                } 
+              }
+?>
               <li>
                 <a href="#" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
