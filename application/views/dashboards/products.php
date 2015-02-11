@@ -98,7 +98,15 @@
     <script type="text/javascript">
     $(document).ready(function(){
       $('#add_new').click(function(){
-        ('#modal_title').text('Add New Product');
+        $('#modal_title').text('Add New Product');
+        $('#modal_submit').val('Add');
+        $('#editProductForm input').val('');
+      });
+
+      $('.edit').click(function(){
+        $('#modal_title').text('Edit Product');
+        $('#modal_submit').val('Edit');
+        // $('#editProductForm input').val('');
       });
     });
     </script>
@@ -165,7 +173,7 @@
                 <td>123</td>
                 <td>1000</td>
                 <td>
-                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
+                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -179,7 +187,14 @@
                 <td>23</td>
                 <td>100</td>
                 <td>
-                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
+<!--                   <form class="editForm">
+                    <input class="btn-link edit" type="submit" value="edit">
+                    <input type="hidden" name="product_id" value="2">
+                    <input type="hidden" name="product_name" value="Hat">
+                    <input type="hidden" name="product_desciption" value="Great Fit, Cool new colors">
+                    <input type="hidden" name="product_category" value="Hats">
+                  </form> -->
+                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -193,7 +208,7 @@
                 <td>12</td>
                 <td>11</td>
                 <td>
-                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
+                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -207,7 +222,7 @@
                 <td>88</td>
                 <td>1</td>
                 <td>
-                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
+                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -221,7 +236,7 @@
                 <td>34</td>
                 <td>99</td>
                 <td>
-                  <p class="btn-link" data-toggle="modal" data-target="#edit_modal">edit</p>
+                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
                   <form action="">
                     <input class="btn-link" type="submit" value="delete">
                     <input type="hidden" name="id" value="1">
@@ -267,7 +282,7 @@
         <div class="wrapper col-md-6 col-md-offset-3 modal-content">
           <div class="row-fluid">
             <div class="col-md-11">
-              <h2>Edit Product - ID 2</h2> 
+              <h2 id="modal_title">Edit Product</h2> 
             </div>
             <div class="col-md-1">
               <button class="close" data-dismiss="modal">x</button>
@@ -287,6 +302,7 @@
                 <div class="form-group">
                   <label for="categories">Categories: </label>
                   <select class="form-control" name="categories">
+<!--                     <option value="" disabled selected><?= $order['status']; ?></option> -->
                     <option>Hats</option>
                     <option>Mugs</option>
                     <option>Pants</option>
@@ -359,7 +375,7 @@
                 <div class="row">
                   <button class="btn btn-danger">Cancel</button>
                   <button class="btn btn-success">Preview</button>
-                  <input type="submit" class="btn btn-primary">                  
+                  <input id="modal_submit" type="submit" class="btn btn-primary" value="Edit">                  
                 </div>
               </form>
             </div><!-- div.col-md-8 col-md-offset-2 -->
