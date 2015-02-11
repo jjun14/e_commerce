@@ -53,6 +53,22 @@
         margin: 0px;
       }
     </style>
+    <script type='text/javascript'>
+      $(document).ready(function(){
+        if($('p span').text() == 'Shipped')
+        {
+          $(".status").parent().css('background-color', '#86C481');
+        }
+        else if($('p span').text() == 'Cancelled')
+        {
+          $(".status").parent().css('background-color', '#ff7575');
+        }
+        else if($('p span').text() == 'Order in process')
+        {
+          $(".status").parent().css('background-color', '#f5fc97');
+        }
+      });
+    </script>
   </head>
   <body>
     <!-- Navbar -->
@@ -111,20 +127,6 @@
               </tr>
             </thead>
             <tbody>
-<!--               <tr>
-                <td>35</td>
-                <td>Cup</td>
-                <td>$9.99</td>
-                <td>1</td>
-                <td>$9.99</td>
-              </tr>            
-              <tr>
-                <td>215</td>
-                <td>Shirt</td>
-                <td>$19.99</td>
-                <td>2</td>
-                <td>$39.99</td>
-              </tr> -->
 <?php 
             foreach($products as $product)
             { 
@@ -141,7 +143,7 @@
           </table>
           <div class="row-fluid">
             <div class="col-md-5 info">
-              <p>Status: <?= $order['status']; ?></p>
+              <p class="status">Status: <span><?= $order['status']; ?></span></p>
             </div>            
             <div class="col-md-5 col-md-offset-2 info">
               <p>Sub total: <?= $order['total']; ?></p>
