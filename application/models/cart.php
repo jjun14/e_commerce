@@ -117,8 +117,8 @@ class Cart extends CI_Model
 		for ($i=0;$i<count($products);$i++)
 		{
 			// insert into orders_have_products table
-			$query = "INSERT INTO orders_have_products (orders_id, products_id, product_qty) VALUES(?, ?, ?)";
-			$values = array($order_id, $products[$i]['id'], $products[$i]['product_qty']);
+			$query = "INSERT INTO orders_have_products (product_qty, order_id, product_id) VALUES(?, ?, ?)";
+			$values = array($products[$i]['product_qty'], $order_id, $products[$i]['id']);
 			$this->db->query($query, $values);
 		}
 	}

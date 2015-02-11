@@ -18,7 +18,7 @@ class Product extends CI_Model
       {
         $count = $this->db->query("SELECT count(products.id) AS num_products FROM products")->row_array();
         $query = "SELECT products.id, products.name, price, url FROM products
-                  -- LEFT JOIN categories on categories_id = categories.id
+                  -- LEFT JOIN categories on category_id = categories.id
                   LEFT JOIN images ON products.id = images.product_id
                   LEFT JOIN image_types ON image_type_id = image_types.id
                   ORDER BY price ASC
@@ -29,12 +29,12 @@ class Product extends CI_Model
       else
       { 
         $count = $this->db->query("SELECT count(products.id) AS num_products FROM products
-                                   LEFT JOIN categories ON categories.id = categories_id
+                                   LEFT JOIN categories ON categories.id = category_id
                                    LEFT JOIN images ON products.id = images.product_id
                                    LEFT JOIN image_types ON image_type_id = image_types.id
                                    WHERE categories.name LIKE (?)", $post['category'])->row_array();
         $query = "SELECT products.id, products.name, price, url FROM products
-                  LEFT JOIN categories ON categories.id = categories_id
+                  LEFT JOIN categories ON categories.id = category_id
                   LEFT JOIN images ON products.id = images.product_id
                   LEFT JOIN image_types ON image_type_id = image_types.id
                   WHERE categories.name LIKE (?)
@@ -65,12 +65,12 @@ class Product extends CI_Model
         $count = $this->db->query("SELECT count(products.id) AS num_products FROM products
                                    LEFT JOIN orders_have_products ON products_id = products.id
                                    LEFT JOIN images ON products.id = product_id
-                                   LEFT JOIN categories ON categories_id = categories.id
+                                   LEFT JOIN categories ON category_id = categories.id
                                    WHERE categories.name LIKE (?)", $post['category'])->row_array();
         $query = "SELECT products.id, products.name, price, url, SUM(product_qty) AS num_sold FROM products
                   LEFT JOIN orders_have_products ON products_id = products.id
                   LEFT JOIN images ON products.id = product_id
-                  LEFT JOIN categories ON categories_id = categories.id
+                  LEFT JOIN categories ON category_id = categories.id
                   WHERE categories.name LIKE (?)
                   GROUP BY products.id
                   ORDER BY num_sold DESC
@@ -82,7 +82,7 @@ class Product extends CI_Model
     else 
     {
       $query = "SELECT products.*, categories.name AS category_name, SUM(product_qty) AS quantity_sold, url FROM products
-                LEFT JOIN categories ON categories_id = categories.id
+                LEFT JOIN categories ON category_id = categories.id
                 LEFT JOIN orders_have_products ON products.id = products_id
                 LEFT JOIN images ON products.id = product_id
                 LEFT JOIN image_types ON image_type_id = images.id
@@ -109,7 +109,7 @@ class Product extends CI_Model
   function get_categories_count()
   {
     $query = "SELECT categories.name, count(products.id) AS count FROM products
-              LEFT JOIN categories ON categories.id = categories_id
+              LEFT JOIN categories ON categories.id = category_id
               GROUP BY categories.name";
     return $this->db->query($query)->result_array();
   }
@@ -120,15 +120,15 @@ class Product extends CI_Model
               WHERE products.id = ?";
     return $this->db->query($query, $id)->row_array();
   }
-  function get_similar_products($id, $categories_id)
+  function get_similar_products($id, $category_id)
   {
     $query = "SELECT products.id, products.name, url FROM products 
               LEFT JOIN images ON product_id = products.id
-              WHERE categories_id = ?
+              WHERE category_id = ?
               AND products.id NOT IN (?)
               ORDER BY rand()
               LIMIT 7";
-    $values = array($categories_id, $id);
+    $values = array($category_id, $id);
     return $this->db->query($query, $values)->result_array();
   }
   function delete_product($id)
