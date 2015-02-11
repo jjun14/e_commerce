@@ -138,7 +138,7 @@
     <div class="container-fluid">
     <!-- Start Search and Filter Form -->
       <div class="row-fluid">
-        <div class="col-md-2 col-md-offset-1">
+        <div class="col-md-4 col-md-offset-1">
           <form action="">
             <div class="input-group">
                 <!-- <span class="input-group-addon glyphicon glyphicon-search"></span> -->
@@ -146,7 +146,7 @@
             </div>
           </form>
         </div>
-        <div class="col-md-2 col-md-offset-6 add_new">
+        <div class="col-md-2 col-md-offset-4 add_new">
           <button id="add_new" class="btn btn-primary" data-toggle="modal" data-target="#edit_modal" href="">Add new product</button>
         </div>
       </div>
@@ -166,84 +166,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><div class="picture"></div></td>
-                <td>1</td>
-                <td>T-Shirt</td>
-                <td>123</td>
-                <td>1000</td>
-                <td>
-                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
-                  <form action="">
-                    <input class="btn-link" type="submit" value="delete">
-                    <input type="hidden" name="id" value="1">
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td><div class="picture"></div></td>
-                <td>2</td>
-                <td>Hat</td>
-                <td>23</td>
-                <td>100</td>
-                <td>
-<!--                   <form class="editForm">
-                    <input class="btn-link edit" type="submit" value="edit">
-                    <input type="hidden" name="product_id" value="2">
-                    <input type="hidden" name="product_name" value="Hat">
-                    <input type="hidden" name="product_desciption" value="Great Fit, Cool new colors">
-                    <input type="hidden" name="product_category" value="Hats">
-                  </form> -->
-                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
-                  <form action="">
-                    <input class="btn-link" type="submit" value="delete">
-                    <input type="hidden" name="id" value="1">
-                  </form>
-                </td>
-              </tr>              
-              <tr>
-                <td><div class="picture"></div></td>
-                <td>3</td>
-                <td>Mug</td>
-                <td>12</td>
-                <td>11</td>
-                <td>
-                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
-                  <form action="">
-                    <input class="btn-link" type="submit" value="delete">
-                    <input type="hidden" name="id" value="1">
-                  </form>
-                </td>
-              </tr>              
-              <tr>
-                <td><div class="picture"></div></td>
-                <td>4</td>
-                <td>Pants</td>
-                <td>88</td>
-                <td>1</td>
-                <td>
-                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
-                  <form action="">
-                    <input class="btn-link" type="submit" value="delete">
-                    <input type="hidden" name="id" value="1">
-                  </form>
-                </td>
-              </tr>              
-              <tr>
-                <td><div class="picture"></div></td>
-                <td>5</td>
-                <td>Belt</td>
-                <td>34</td>
-                <td>99</td>
-                <td>
-                  <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
-                  <form action="">
-                    <input class="btn-link" type="submit" value="delete">
-                    <input type="hidden" name="id" value="1">
-                  </form>
-                </td>
-              </tr>
-
+<?php         foreach($all_products as $product)
+              { 
+?>              <tr>
+                  <td><img src="<?= $product['url']; ?>" alt="magazine_cover"></td>
+                  <td><?= $product['id']; ?></td>
+                  <td><?= $product['name']; ?></td>
+                  <td><?= $product['inventory']; ?></td>
+                  <td><?= $product['quantity_sold']; ?></td>
+                  <td>
+                      <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
+                      <form action="">
+                        <input class="btn-link" type="submit" value="delete">
+                        <input type="hidden" name="id" value="<?= $product['id']; ?>">
+                      </form>
+                  </td>
+                </tr>
+<?php         }
+?>
             </tbody>
           </table>
         </div>
