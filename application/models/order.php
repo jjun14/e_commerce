@@ -25,9 +25,9 @@ class Order extends CI_Model
                 concat_ws(' ', billings.address_1, billings.address_2, billings.city, billings.state, billings.zipcode) AS address,
                 orders.total, orders.status FROM orders
                 LEFT JOIN billings ON billing_id = billings.id
-                LEFT JOIN cities ON cities_id = cities.id
-                LEFT JOIN states ON states_id = states.id
-                LEFT JOIN zipcodes ON zipcodes_id = zipcodes.id
+                -- LEFT JOIN cities ON cities_id = cities.id
+                -- LEFT JOIN states ON states_id = states.id
+                -- LEFT JOIN zipcodes ON zipcodes_id = zipcodes.id
                 WHERE billings.id = ?
                 OR billings.first_name LIKE (?)
                 OR billings.last_name LIKE (?)
