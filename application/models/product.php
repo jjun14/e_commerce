@@ -115,8 +115,9 @@ class Product extends CI_Model
   }
   function get_product($id)
   {
-    $query = "SELECT * FROM products
-              WHERE id = ?";
+    $query = "SELECT products.*, url FROM products
+              LEFT JOIN images ON product_id = products.id
+              WHERE products.id = ?";
     return $this->db->query($query, $id)->row_array();
   }
   function get_similar_products($id, $categories_id)
