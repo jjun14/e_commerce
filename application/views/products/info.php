@@ -58,13 +58,6 @@
       // $('#main')
 
     });
-
-
-
-
-
-
-
     </script>
   </head>
   <body>
@@ -99,16 +92,17 @@
       <h3 class="col-md-offset-1">Black Belt for Staff</h3>
       <div class="row">
         <div class="col-md-3 col-md-offset-1">
-          <img id="main" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number1.jpg">
+          <img id="main" src="<?= $product['url']; ?>">
           <div class="row">
-            <img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number1.jpg">
+            <img class="secondary" src="<?= $product['url']; ?>">
 		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number2.jpg">
 		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number3.jpg">
 		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number4.jpg">
 		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number5.jpg">
   		     </div>
         </div>
-      	<div class="col-md-6">Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product...
+      	<div class="col-md-6">
+          <?= $product['description']; ?>
         </div>
       </div>
       <div class="row">

@@ -6,6 +6,7 @@ class Dashboards extends CI_Controller {
 	{
 		parent::__construct();
     $this->load->model('Order');
+    $this->load->model('Product');
     // $this->output->enable_profiler();
     if($this->session->userdata('logged_in') != true)
     {
@@ -29,7 +30,8 @@ class Dashboards extends CI_Controller {
   }
 	public function products()
 	{
-		$this->load->view('/dashboards/products');
+    $all_products = $this->Product->get_all_products($this->input->post());
+		$this->load->view('/dashboards/products', array('all_products'=>$all_products));
 	}
 }
 

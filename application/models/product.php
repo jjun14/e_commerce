@@ -5,7 +5,7 @@ class Product extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-    $this->output->enable_profiler();
+    // $this->output->enable_profiler();
 		date_default_timezone_set('America/Los_Angeles');
 	}
 
@@ -79,6 +79,20 @@ class Product extends CI_Model
         return $all_products;
       }
     }
+    else 
+    {
+      $query = "SELECT products.*, categories.name AS category_name, SUM(product_qty) AS quantity_sold, url FROM products
+                LEFT JOIN categories ON categories_id = categories.id
+                LEFT JOIN orders_have_products ON products.id = products_id
+                LEFT JOIN images ON products.id = product_id
+                LEFT JOIN image_types ON image_type_id = images.id
+                WHERE image_type_id = 1
+                GROUP BY products.id";
+      $all_products = $this->db->query($query)->result_array();
+      // var_dump($all_products);
+      // die();
+      return $all_products;
+    }
   }
   public function search_by_name($post)
   {
@@ -101,8 +115,9 @@ class Product extends CI_Model
   }
   function get_product($id)
   {
-    $query = "SELECT * FROM products
-              WHERE id = ?";
+    $query = "SELECT products.*, url FROM products
+              LEFT JOIN images ON product_id = products.id
+              WHERE products.id = ?";
     return $this->db->query($query, $id)->row_array();
   }
   function get_similar_products($id, $categories_id)
@@ -115,6 +130,11 @@ class Product extends CI_Model
               LIMIT 7";
     $values = array($categories_id, $id);
     return $this->db->query($query, $values)->result_array();
+  }
+  function delete_product($id)
+  {
+    $query = "DELETE FROM products WHERE id = ?";
+    return $this->db->query($query, $id);
   }
 }
 ?>
