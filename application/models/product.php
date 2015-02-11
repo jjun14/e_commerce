@@ -83,8 +83,8 @@ class Product extends CI_Model
     {
       $query = "SELECT products.*, categories.name AS category_name, SUM(product_qty) AS quantity_sold, url FROM products
                 LEFT JOIN categories ON category_id = categories.id
-                LEFT JOIN orders_have_products ON products.id = products_id
-                LEFT JOIN images ON products.id = product_id
+                LEFT JOIN orders_have_products ON products.id = orders_have_products.product_id
+                LEFT JOIN images ON products.id = images.product_id
                 LEFT JOIN image_types ON image_type_id = images.id
                 WHERE image_type_id = 1
                 GROUP BY products.id";
