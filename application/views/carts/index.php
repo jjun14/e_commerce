@@ -75,6 +75,9 @@
         border:none;
         background-color:transparent;
       }
+      .inline * {
+        display: inline-block;
+      }
 
     </style>
 
@@ -93,8 +96,6 @@
       }
 
       $(document).ready(function(){
-
-          var string = "";
 
         $('.update').click(function(){
           $(this).siblings('form').children('div').html("<select class='product_qty' name='product_qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option></select>"
@@ -157,6 +158,10 @@
             }           
         }); // End input blur function
 
+        $('#stripe button').click(function(){
+          $('#addresses').submit();
+        });
+
       }); // End document ready function
 
       
@@ -164,6 +169,12 @@
     </script>
   </head>
   <body>
+    <?php
+
+    // $this->session->sess_destroy();
+    // var_dump($products);
+
+    ?>
     <!-- <?php //var_dump($products) ?> -->
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
@@ -210,21 +221,24 @@
               // to display order summary on stripe modal
               $names = "";
 
-              foreach($products as $key => $value)
-              {
-                // displaying each row of cart data
-                echo 
-                "<tr><td>".$value['name']."</td><td>$".
-                $value['price']."</td><td><form action='/carts/update/".$value['id']."' method='post'><div>".
-                $value['product_qty']."</div></form><button class='update btn-link'>update</button>"?>
-                <form action= <?= '"/carts/delete/'.$value['id'].'"' ?> ><button class="trash"><span class='glyphicon glyphicon-trash'></span></button><input type="hidden" name="product_id" value=<?= '"'.$value['id'].'"' ?> ></form><?=
-                "</td><td>$".
-                ($value['price']*$value['product_qty'])."</td></tr>"; 
+              if (isset($products)) {
+                foreach($products as $key => $value)
+                {
+                  // displaying each row of cart data
+                  echo 
+                  "<tr><td>".$value['name']."</td><td>$".
+                  $value['price']."</td><td class='inline'><form action='/carts/update/".$value['id']."' method='post'><div>".
+                  $value['product_qty']."</div></form><button class='update btn-link'>update</button>"?>
+                  <form action= <?= '"/carts/delete/'.$value['id'].'"' ?> ><button class="trash"><span class='glyphicon glyphicon-trash'></span></button><input type="hidden" name="product_id" value=<?= '"'.$value['id'].'"' ?> ></form><?=
+                  "</td><td>$".
+                  ($value['price']*$value['product_qty'])."</td></tr>"; 
 
-                $total += ($value['price']*$value['product_qty']);
-                $names .= "- ".$value['name']." -";
+                  $total += ($value['price']*$value['product_qty']);
+                  $names .= "- ".$value['name']." -";
 
-              } ?>
+                } 
+              }
+                ?>
               
             </tbody>
           </table>

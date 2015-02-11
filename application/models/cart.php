@@ -24,13 +24,12 @@ class Cart extends CI_Model
 
 		// testing whether user has created a cart
 		$cart_check = $this->db->query("SELECT * FROM carts WHERE user_id = ?", array($this->session->userdata('id')))->row_array();
-
 		// if a cart is found...
 		if (count($cart_check) > 0) {
 
 			// add to existing cart
-			$query = "INSERT INTO carts_have_products (cart_id, product_id, product_qty) VALUES (?, ?, ?)";
-			$values = array($cart_check['id'], $order_data['product_id'], $order_data['quantity']);
+			$query = "INSERT INTO carts_have_products (product_qty, cart_id, product_id) VALUES (?, ?, ?)";
+			$values = array($order_data['quantity'], $cart_check['id'], $order_data['product_id']);
 			$this->db->query($query, $values);
 		}
 		else
@@ -51,7 +50,7 @@ class Cart extends CI_Model
 	public function display_cart()
 	{
 		// retrieves data needed for cart display
-		$query = "SELECT products.id, products.name, products.price, 
+		$query = "SELECT users.id, products.id, products.name, products.price, 
 			sum(carts_have_products.product_qty) AS product_qty 
 		FROM users
 		LEFT JOIN carts ON users.id = carts.user_id
@@ -84,6 +83,7 @@ class Cart extends CI_Model
 
 	public function checkout($products, $user)
 	{
+
 		// insert into shipping table
 		$query = "INSERT INTO shippings (first_name, last_name, address_1, address_2, city, state, zipcode, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = array($user['shipping_first_name'], $user['shipping_last_name'], $user['shipping_address_1'], $user['shipping_address_2'], $user['shipping_city'], $user['shipping_state'], $user['shipping_zipcode'], date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
@@ -117,10 +117,22 @@ class Cart extends CI_Model
 		for ($i=0;$i<count($products);$i++)
 		{
 			// insert into orders_have_products table
-			$query = "INSERT INTO orders_have_products (product_qty, order_id, product_id) VALUES(?, ?, ?)";
-			$values = array($products[$i]['product_qty'], $order_id, $products[$i]['id']);
+			$query = "INSERT INTO orders_have_products (product_qty, order_id, product_id, created_at, updated_at) VALUES(?, ?, ?, ?, ?)";
+			$values = array($products[$i]['product_qty'], $order_id, $products[$i]['id'], date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
 			$this->db->query($query, $values);
 		}
+
+		// grab cart id
+		$query = "SELECT id FROM carts WHERE user_id = ?";
+		$values = array($this->session->userdata('id'));
+		$cart_id = $this->db->query($query, $values)->row_array();
+		// erase products from cart
+		$query = "DELETE FROM carts_have_products WHERE cart_id = ?";
+		$values = array($cart_id['id']);
+		$this->db->query($query, $values);
+		// $values = array();
+
+		$this->session->set_userdata('cart_qty', 0);
 	}
 
 	public function delete($product)
