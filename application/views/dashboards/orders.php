@@ -162,7 +162,7 @@
               foreach($orders[0] as $order)
               { 
 ?>              <tr>
-                  <td><?= $order['id']; ?></td>
+                  <td><a href="/orders/show/<?= $order['id']; ?>"><?= $order['id']; ?></a></td>
                   <td><?= $order['name']; ?></td>
                   <td><?= $order['date']; ?></td>
                   <td><?= $order['address']; ?></td>

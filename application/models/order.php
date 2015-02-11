@@ -74,6 +74,41 @@ class Order extends CI_Model
       return $all_orders;
     }
   }
+  public function get_by_id($id)
+  {
+    $query = "SELECT 
+              orders.*,
+              concat_ws(' ', shippings.first_name, shippings.last_name) AS shipping_name,
+              concat_ws(' ', shippings.address_1, shippings.address_2) AS shipping_address,
+              city1.city_name AS shipping_city,
+              state1.state_name AS shipping_state,
+              zipcode1.zipcode AS shipping_zip,
+              concat_ws(' ', billings.first_name, billings.last_name) AS billing_name,
+              concat_ws(' ', billings.address_1, billings.address_2) AS billing_address,
+              city1.city_name AS billing_city,
+              state1.state_name AS billing_state,
+              zipcode1.zipcode AS billing_zip
+              FROM orders
+              LEFT JOIN billings ON billing_id = billings.id
+              LEFT JOIN cities AS city1 ON billings.cities_id = city1.id
+              LEFT JOIN states AS state1 ON billings.states_id = state1.id
+              LEFT JOIN zipcodes AS zipcode1 ON billings.zipcodes_id = zipcode1.id
+              LEFT JOIN shippings ON shipping_id = shippings.id
+              LEFT JOIN cities AS city2 ON shippings.cities_id = city2.id
+              LEFT JOIN states AS state2 ON shippings.states_id = state2.id
+              LEFT JOIN zipcodes AS zipcode2 ON shippings.zipcodes_id = zipcode2.id
+              WHERE orders.id = ?";
+    $order = $this->db->query($query, $id)->row_array();
+    return $order;
+  }
+  public function get_products($order_id)
+  {
+    $query = "SELECT * FROM orders_have_products
+              JOIN products ON products_id = products.id
+              WHERE orders_id = ?";
+    $products = $this->db->query($query, $order_id)->result_array();
+    return $products;
+  }
   public function update_status($post)
   {
     $query = "UPDATE orders

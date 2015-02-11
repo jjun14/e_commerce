@@ -85,19 +85,19 @@
       <!-- Start Order Info -->
       <div class="row-fluid">
         <div class="col-md-3 col-md-offset-1 offset info">
-          <p>Order ID: 1</p>
-          <p>Customer shiping info</p>
-          <p>name: bob</p>
-          <p>address: 123 Dojo Way</p>
-          <p>city: Seattle</p>
-          <p>state: WA</p>
-          <p>zip: 98133</p>
+          <p>Order ID: <?= $order['id']; ?></p>
+          <p>Customer shipping info</p>
+          <p>Name: <?= $order['shipping_name']; ?></p>
+          <p>Address: <?= $order['shipping_address']; ?></p>
+          <p>City: <?= $order['shipping_city']; ?></p>
+          <p>State: <?= $order['shipping_state']; ?></p>
+          <p>Zip: <?= $order['shipping_zip']; ?></p>
           <p>Customer billing info</p>
-          <p>name: bob</p>
-          <p>address: 123 Dojo Way</p>
-          <p>city: Seattle</p>
-          <p>state: WA</p>
-          <p>zip: 98133</p>
+          <p>Name: <?= $order['billing_name']; ?></p>
+          <p>Address: <?= $order['billing_address']; ?></p>
+          <p>City: <?= $order['billing_city']; ?></p>
+          <p>State: <?= $order['billing_state']; ?></p>
+          <p>Zip: <?= $order['billing_zip']; ?></p>
         </div>
         <div class="col-md-6 col-md-offset-1">
           <table class="table table-bordered table-striped">
@@ -111,7 +111,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+<!--               <tr>
                 <td>35</td>
                 <td>Cup</td>
                 <td>$9.99</td>
@@ -124,17 +124,29 @@
                 <td>$19.99</td>
                 <td>2</td>
                 <td>$39.99</td>
+              </tr> -->
+<?php 
+            foreach($products as $product)
+            { 
+?>            <tr>
+                <td><?= $product['id']; ?></td>
+                <td><?= $product['name']; ?></td>
+                <td><?= $product['price']; ?></td>
+                <td><?= $product['product_qty']; ?></td>
+                <td><?= $product['price'] * $product['product_qty']; ?></td>
               </tr>
+<?php       } 
+?>
             </tbody>
           </table>
           <div class="row-fluid">
             <div class="col-md-5 info">
-              <p>Status: shipped</p>
+              <p>Status: <?= $order['status']; ?></p>
             </div>            
             <div class="col-md-5 col-md-offset-2 info">
-              <p>Sub total: $29.98</p>
-              <p>Shipping: $1.00</p>
-              <p>Total: $30.98</p>
+              <p>Sub total: <?= $order['total']; ?></p>
+              <p>Shipping: <?= $order['total'] * 0.075; ?></p>
+              <p>Total: <?= $order['total'] + $order['total'] * 0.075; ?></p>
             </div>
           </div>
         <!-- </div>    -->
@@ -142,7 +154,7 @@
     </div><!-- container-fluid -->
     <div class="row-fluid">
       <div class="col-md-1 col-md-offset-10">
-        <a class="btn btn-primary" href="">Go Back</a>
+        <a class="btn btn-primary" href="/dashboards/orders/">Go Back</a>
       </div>
     </div> <!-- row-fluid -->
   </body>
