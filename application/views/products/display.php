@@ -12,35 +12,43 @@
           var current_page = parseInt($('#page_num').attr('value'));
           if($(this).text() == 'first')
           {
-            $('#page_num').attr('value', 1);
+            $('.page_number').attr('value', 1);
           }
           else if($(this).text() == 'next')
           {
             if(!($(".pagination li").length - 2 < current_page + 1))
             {
-              $('#page_num').attr('value', current_page + 1);
+              $('.page_number').attr('value', current_page + 1);
             }
           }
           else if($(this).text() == 'prev')
           {
             if(!(current_page - 1 < 1))
             {
-              $('#page_num').attr('value', current_page - 1);
+              $('.page_number').attr('value', current_page - 1);
             }
           }
           else 
           {
-            $('#page_num').attr('value', current_page);
+            $('.page_number').attr('value', current_page);
           }
         });
 
         $(document).on('click', '.page_num', function(){
-          $('#page_num').attr('value', $(this).text());
+          $('.page_number').attr('value', $(this).text());
         });
 
         $(document).on('click', '.category', function(){
           console.log($(this));
-          $('#category').attr('value', $(this).text().split(" ")[0]);       
+          if($(this).text() == "Show All")
+          {
+            $('#category').attr('value', 'show_all');
+          }
+          else
+          {
+            $('#category').attr('value', $(this).text().split(" ")[0]);
+          }
+          $('.page_number').attr('value', 1);   
         });
 
         $(document).on('submit', '#filterForm', function(){
@@ -113,7 +121,6 @@
       list-style-type: none;
     }
     form ul li{
-      border-left:solid black 2px;
       padding:0px 10px;
       display: inline-block;
     }
@@ -126,6 +133,10 @@
     }
     #pagination a {
       text-decoration: underline;
+    }
+    .page-nav, .page-num, li, .category
+    {
+      cursor: pointer;
     }
     .pages {
       text-align: center;
@@ -159,18 +170,12 @@
     <div class="container-fluid">
       <div class="col-md-3">
         <div id="sidebar" class="col-md-3">
-          <form action="#" method="post">
+          <form action="/products/get_products/" method="post">
             <input type="text" name="product_name" placeholder="product name.">
             <input type="submit" value="?">
-            <input type="hidden" name="action" value="product_search">
+            <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
           </form>
           <h5>Categories</h5>
-<!--           <ul id="categories"> -->
-<!--             <li class="btn-link"><a href="#">Tshirts (25)</a></li>
-            <li class="btn-link"><a href="#">Shoes (35)</a></li>
-            <li class="btn-link"><a href="#">Cups (5)</a></li>
-            <li class="btn-link"><a href="#">Fruits (105)</a></li>
-            <li class="btn-link"><a style="font-style:italic" href="#">Show All</a></li> -->
 <?php 
             foreach($categories_count as $category_count)
             {
@@ -178,7 +183,7 @@
 <?php       }
 ?>
           <!-- </ul> -->
-          <p>Show All</p>
+          <p class='category'>Show All</p>
         </div>
       </div>
     <!-- <div id="sidebar"> -->
@@ -199,11 +204,11 @@
               </ul>
               <p>Sorted by 
                 <select name="sort_by">
-                  <option value="price">Price</option>
-                  <option value="most_popular">Most Popular</option>
+                  <option value="Price">Price</option>
+                  <option value="Most Popular">Most Popular</option>
                 </select>
               </p>
-              <input id="page_num" type="hidden" name="page_num" value="<?= $page_num; ?>">
+              <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
               <input id="category" type="hidden" name="category" value="<?= $category; ?>">
               <input type="submit" value="Submit">
             </form>
