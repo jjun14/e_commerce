@@ -75,12 +75,6 @@ class Cart extends CI_Model
 
 	public function checkout($products, $user)
 	{
-		// var_dump($products);
-		// var_dump($user);
-		// echo $user['same_as'];
-		// echo $user['shipping_first_name'];
-		// die();
-
 		// insert into shipping table
 		$query = "INSERT INTO shippings (first_name, last_name, address_1, address_2, city, state, zipcode, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = array($user['shipping_first_name'], $user['shipping_last_name'], $user['shipping_address_1'], $user['shipping_address_2'], $user['shipping_city'], $user['shipping_state'], $user['shipping_zipcode'], date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
