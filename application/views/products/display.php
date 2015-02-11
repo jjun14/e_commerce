@@ -9,7 +9,7 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $('.page-nav').on('click', function(){
-          var current_page = parseInt($('#page_num').attr('value'));
+          var current_page = parseInt($('.page_number').attr('value'));
           if($(this).text() == 'first')
           {
             $('.page_number').attr('value', 1);

@@ -22,9 +22,15 @@ class Products extends CI_Controller {
     // var_dump($this->input->post());
     // die();
     $categories_count = $this->Product->get_categories_count();
-    $all_products = $this->Product->get_all_products($this->input->post());
-    // die();
-    $this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>$this->input->post('page_num'), 'sort_by'=>$this->input->post('sort_by') ,'category'=>$this->input->post('category'),'categories_count'=>$categories_count));
+    if($this->input->post('product_name'))
+    {
+      $all_products = $this->Product->search_by_name($this->input->post());
+    }
+    else 
+    {
+      $all_products = $this->Product->get_all_products($this->input->post());
+    }
+      $this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>$this->input->post('page_num'), 'sort_by'=>$this->input->post('sort_by') ,'category'=>$this->input->post('category'),'categories_count'=>$categories_count));
   }
   public function show($id)
   {

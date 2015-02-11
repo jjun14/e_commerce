@@ -80,6 +80,18 @@ class Product extends CI_Model
       }
     }
   }
+  public function search_by_name($post)
+  {
+    $offset = 15 * ($post['page_num'] - 1);
+    $count = $this->db->query("SELECT count(products.id) AS num_products FROM products WHERE name LIKE(?)", '%'.$post['product_name'].'%')->row_array();
+    $query = "SELECT products.id, products.name, price, url FROM products
+              LEFT JOIN images ON product_id = products.id
+              WHERE name LIKE (?)
+              LIMIT 15 OFFSET ?";
+    $like = '%'.$post['product_name'].'%';
+    $all_products = array($this->db->query($query, array($like, $offset))->result_array(), $count['num_products']);
+    return $all_products;
+  }
   function get_categories_count()
   {
     $query = "SELECT categories.name, count(products.id) AS count FROM products
