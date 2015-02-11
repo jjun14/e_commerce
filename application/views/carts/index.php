@@ -94,13 +94,16 @@
 
       $(document).ready(function(){
 
-        $.ajax({
-          url: "/carts/delete",
-          method: "post",
-          data: $(this).serialize();
-        }).done(function(response){
-          console.log(response);
-        })
+          var string = "";
+
+        $('.update').click(function(){
+          alert(this);
+          $(this).siblings('div').text(string
+            );
+
+        });
+
+        
 
         // Disable stripe button
         $('#stripe button').attr('disabled', 'disabled');
@@ -176,11 +179,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/carts/index">Shopping Cart (5)</a></li>
+            <li><a href="/carts/index">Shopping Cart <?= "(".$this->session->userdata('cart_qty').")" ?> </a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+
     <!-- End Navbar -->
     <div class="container-fluid">
       <!-- Begining of Item Table -->
@@ -209,23 +213,23 @@
                 // displaying each row of cart data
                 echo 
                 "<tr><td>".$value['name']."</td><td>$".
-                $value['price']."</td><td>".
-                $value['product_qty']."<button class='update btn-link'>update</button>"?>
-                <form><button class="trash"><span class='glyphicon glyphicon-trash'></span></button><input type="hidden" name="product_id" value=<?= '"'.$value['id'].'"' ?> ></form><?=
+                $value['price']."</td><td><div class='product_qty'>".
+                $value['product_qty']."</div><button class='update btn-link'>update</button>"?>
+                <form action= <?= '"/carts/delete/'.$value['id'].'"' ?> ><button class="trash"><span class='glyphicon glyphicon-trash'></span></button><input type="hidden" name="product_id" value=<?= '"'.$value['id'].'"' ?> ></form><?=
                 "</td><td>$".
                 ($value['price']*$value['product_qty'])."</td></tr>"; 
 
                 $total += ($value['price']*$value['product_qty']);
                 $names .= "- ".$value['name']." -";
 
-                ?>
-                                
-        <?php } ?>
+              } ?>
               
             </tbody>
           </table>
         </div><!-- .col-md-12 -->
       </div><!-- .row-fluid -->
+
+
       <div class="row-fluid">
         <div class="col-md-2 col-md-offset-10 total">
           <p>Total: $<?= $total ?></p>
@@ -236,6 +240,19 @@
           </div>
         </div>
       </div>
+
+      <form action='/carts/update_cart/' method='post'>
+        <select name='quantity'>
+          <?php
+            for ($i=1;$i<20;$i++)
+            {
+              echo '<option value="'.$i.'">'.$i.'</option>';
+            }
+          ?>
+        </select>
+        <input type='submit' value='Update'>
+        <input type='hidden' name='product_id' value= '<?= $product['id']; ?>'>
+      </form>
       
       <!-- End of Item Table -->
       <!-- REMOVE BR TAGS LATER -->
