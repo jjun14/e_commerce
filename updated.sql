@@ -1,6 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `e_commerce` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `e_commerce`;
--- MySQL dump 10.13  Distrib 5.5.24, for osx10.5 (i386)
+-- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
 --
 -- Host: 127.0.0.1    Database: e_commerce
 -- ------------------------------------------------------
@@ -39,7 +37,7 @@ CREATE TABLE `billings` (
   KEY `fk_billings_zipcodes1_idx` (`zipcode`),
   KEY `fk_billings_states1_idx` (`state`),
   KEY `fk_billings_cities1_idx` (`city`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +46,7 @@ CREATE TABLE `billings` (
 
 LOCK TABLES `billings` WRITE;
 /*!40000 ALTER TABLE `billings` DISABLE KEYS */;
-INSERT INTO `billings` VALUES (12,'Jimmy','Jun','123 Dojo Way','Suite B','San Jose','CA','95112','2015-02-11 11:39:13',NULL);
+INSERT INTO `billings` VALUES (12,'Jimmy','Jun','123 Dojo Way','Suite B','San Jose','CA','95112','2015-02-11 11:39:13',NULL),(13,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:42:38','2015-02-11 12:42:38'),(14,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:43:13','2015-02-11 12:43:13'),(15,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:43:27','2015-02-11 12:43:27'),(16,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:43:58','2015-02-11 12:43:58'),(17,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:44:10','2015-02-11 12:44:10'),(18,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:44:37','2015-02-11 12:44:37'),(19,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:03:16','2015-02-11 13:03:16'),(20,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:04:11','2015-02-11 13:04:11'),(21,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:06:21','2015-02-11 13:06:21'),(22,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:06:54','2015-02-11 13:06:54'),(23,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:07:06','2015-02-11 13:07:06'),(24,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:07:29','2015-02-11 13:07:29'),(25,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:12:39','2015-02-11 13:12:39');
 /*!40000 ALTER TABLE `billings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +65,7 @@ CREATE TABLE `carts` (
   PRIMARY KEY (`id`),
   KEY `fk_carts_users1_idx` (`user_id`),
   CONSTRAINT `fk_carts_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +74,7 @@ CREATE TABLE `carts` (
 
 LOCK TABLES `carts` WRITE;
 /*!40000 ALTER TABLE `carts` DISABLE KEYS */;
-INSERT INTO `carts` VALUES (11,7,'2015-02-11 11:56:55','2015-02-11 11:56:55');
+INSERT INTO `carts` VALUES (11,7,'2015-02-11 11:56:55','2015-02-11 11:56:55'),(12,8,'2015-02-11 12:19:53','2015-02-11 12:19:53'),(13,8,'2015-02-11 12:48:53','2015-02-11 12:19:53'),(14,9,'2015-02-11 13:04:02','2015-02-11 13:04:02'),(15,10,'2015-02-11 13:04:06','2015-02-11 13:04:06');
 /*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +97,7 @@ CREATE TABLE `carts_have_products` (
   KEY `fk_carts_has_products_carts1_idx` (`cart_id`),
   CONSTRAINT `fk_carts_has_products_carts1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_carts_has_products_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +106,7 @@ CREATE TABLE `carts_have_products` (
 
 LOCK TABLES `carts_have_products` WRITE;
 /*!40000 ALTER TABLE `carts_have_products` DISABLE KEYS */;
-INSERT INTO `carts_have_products` VALUES (58,6,11,1,NULL,NULL),(59,1,11,3,NULL,NULL);
+INSERT INTO `carts_have_products` VALUES (58,6,11,1,NULL,NULL),(59,1,11,3,NULL,NULL),(66,1,12,2,NULL,NULL),(67,3,14,5,NULL,NULL);
 /*!40000 ALTER TABLE `carts_have_products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +217,7 @@ CREATE TABLE `orders` (
   CONSTRAINT `fk_orders_billings1` FOREIGN KEY (`billing_id`) REFERENCES `billings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orders_shippings1` FOREIGN KEY (`shipping_id`) REFERENCES `shippings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orders_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,6 +226,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (21,32.97,'Order in process',8,14,13,'2015-02-11 12:42:38','2015-02-11 12:42:38'),(22,32.97,'Order in process',8,15,14,'2015-02-11 12:43:13','2015-02-11 12:43:13'),(23,32.97,'Order in process',8,16,15,'2015-02-11 12:43:27','2015-02-11 12:43:27'),(24,32.97,'Order in process',8,17,16,'2015-02-11 12:43:58','2015-02-11 12:43:58'),(25,32.97,'Order in process',8,18,17,'2015-02-11 12:44:10','2015-02-11 12:44:10'),(26,32.97,'Order in process',8,19,18,'2015-02-11 12:44:37','2015-02-11 12:44:37'),(27,11.99,'Order in process',8,20,19,'2015-02-11 13:03:16','2015-02-11 13:03:16'),(28,32.97,'Order in process',10,21,20,'2015-02-11 13:04:11','2015-02-11 13:04:11'),(29,10.99,'Order in process',10,22,21,'2015-02-11 13:06:21','2015-02-11 13:06:21'),(30,10.99,'Order in process',10,23,22,'2015-02-11 13:06:54','2015-02-11 13:06:54'),(31,11.99,'Cancelled',10,24,23,'2015-02-11 13:07:06','2015-02-11 13:21:05'),(32,10.99,'Order in process',10,25,24,'2015-02-11 13:07:29','2015-02-11 13:07:29'),(33,63.95,'Shipped',10,26,25,'2015-02-11 13:12:39','2015-02-11 13:16:00');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +249,7 @@ CREATE TABLE `orders_have_products` (
   KEY `fk_orders_has_products_orders1_idx` (`order_id`),
   CONSTRAINT `fk_orders_has_products_orders1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orders_has_products_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,6 +258,7 @@ CREATE TABLE `orders_have_products` (
 
 LOCK TABLES `orders_have_products` WRITE;
 /*!40000 ALTER TABLE `orders_have_products` DISABLE KEYS */;
+INSERT INTO `orders_have_products` VALUES (11,3,26,5,'2015-02-11 12:44:37','2015-02-11 12:44:37'),(12,3,28,5,'2015-02-11 13:04:11','2015-02-11 13:04:11'),(13,1,29,5,'2015-02-11 13:06:21','2015-02-11 13:06:21'),(14,1,31,2,'2015-02-11 13:07:06','2015-02-11 13:07:06'),(15,1,32,5,'2015-02-11 13:07:29','2015-02-11 13:07:29'),(16,2,33,1,'2015-02-11 13:12:39','2015-02-11 13:12:39'),(17,3,33,2,'2015-02-11 13:12:39','2015-02-11 13:12:39');
 /*!40000 ALTER TABLE `orders_have_products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +313,7 @@ CREATE TABLE `shippings` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,7 +322,7 @@ CREATE TABLE `shippings` (
 
 LOCK TABLES `shippings` WRITE;
 /*!40000 ALTER TABLE `shippings` DISABLE KEYS */;
-INSERT INTO `shippings` VALUES (12,'Jimmy','Jun','123 Dojo Way','Suite B','San Jose','CA','95112','2015-02-11 11:38:53',NULL),(13,'Jimmy','Jun','123 Dojo Way',NULL,'San Jose','CA','95112','2015-02-11 11:54:15',NULL);
+INSERT INTO `shippings` VALUES (12,'Jimmy','Jun','123 Dojo Way','Suite B','San Jose','CA','95112','2015-02-11 11:38:53',NULL),(13,'Jimmy','Jun','123 Dojo Way',NULL,'San Jose','CA','95112','2015-02-11 11:54:15',NULL),(14,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:42:38','2015-02-11 12:42:38'),(15,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:43:13','2015-02-11 12:43:13'),(16,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:43:27','2015-02-11 12:43:27'),(17,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:43:58','2015-02-11 12:43:58'),(18,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:44:10','2015-02-11 12:44:10'),(19,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 12:44:37','2015-02-11 12:44:37'),(20,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:03:16','2015-02-11 13:03:16'),(21,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:04:11','2015-02-11 13:04:11'),(22,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:06:21','2015-02-11 13:06:21'),(23,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:06:54','2015-02-11 13:06:54'),(24,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:07:06','2015-02-11 13:07:06'),(25,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:07:29','2015-02-11 13:07:29'),(26,'Matt','Rutledge','1631 Mercy St','Unit A','Mountain View','CA','94041','2015-02-11 13:12:39','2015-02-11 13:12:39');
 /*!40000 ALTER TABLE `shippings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +371,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `fk_users_user_privileges1_idx` (`user_privilege_id`),
   CONSTRAINT `fk_users_user_privileges1` FOREIGN KEY (`user_privilege_id`) REFERENCES `user_privileges` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,7 +380,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (6,'Jimmy','Jun','jimmy@gmail.com','5f4dcc3b5aa765d61d8327deb882cf99',1,NULL,NULL),(7,NULL,NULL,NULL,NULL,NULL,'2015-02-11 11:56:55','2015-02-11 11:56:55');
+INSERT INTO `users` VALUES (6,'Jimmy','Jun','jimmy@gmail.com','5f4dcc3b5aa765d61d8327deb882cf99',1,NULL,NULL),(7,NULL,NULL,NULL,NULL,NULL,'2015-02-11 11:56:55','2015-02-11 11:56:55'),(8,NULL,NULL,NULL,NULL,NULL,'2015-02-11 12:19:53','2015-02-11 12:19:53'),(9,NULL,NULL,NULL,NULL,NULL,'2015-02-11 13:04:02','2015-02-11 13:04:02'),(10,NULL,NULL,NULL,NULL,NULL,'2015-02-11 13:04:06','2015-02-11 13:04:06');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -393,4 +393,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-11 12:10:56
+-- Dump completed on 2015-02-11 13:33:24
