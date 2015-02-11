@@ -95,6 +95,13 @@
       }
 
     </style>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#add_new').click(function(){
+        ('#modal_title').text('Add New Product');
+      });
+    });
+    </script>
   </head>
   <body>
     <!-- Navbar -->
@@ -132,7 +139,7 @@
           </form>
         </div>
         <div class="col-md-2 col-md-offset-6 add_new">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#edit_modal" href="">Add new product</button>
+          <button id="add_new" class="btn btn-primary" data-toggle="modal" data-target="#edit_modal" href="">Add new product</button>
         </div>
       </div>
     <!-- End Search and Filter Form -->
