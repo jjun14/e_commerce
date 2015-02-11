@@ -104,8 +104,8 @@ class Order extends CI_Model
   public function get_products($order_id)
   {
     $query = "SELECT * FROM orders_have_products
-              JOIN products ON products_id = products.id
-              WHERE orders_id = ?";
+              JOIN products ON product_id = products.id
+              WHERE order_id = ?";
     $products = $this->db->query($query, $order_id)->result_array();
     return $products;
   }
