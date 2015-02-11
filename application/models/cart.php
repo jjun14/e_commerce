@@ -139,6 +139,22 @@ class Cart extends CI_Model
 		$this->db->query($query, $values);
 
 	}
+
+	public function update_qty($product)
+	{
+		// Grab cart_id
+		$query = "SELECT * FROM carts WHERE user_id = ?";
+		$values = array($this->session->userdata('id'));
+		$cart_id = $this->db->query($query, $values)->row_array();
+		// Delete all of product in cart
+		$query = "DELETE FROM carts_have_products WHERE product_id = ? AND cart_id = ?";
+		$values = array($product['id'], $cart_id['id']);
+		$this->db->query($query, $values);
+		// Add desired amount of product
+		$query = "INSERT INTO carts_have_products (cart_id, product_id, product_qty) VALUES (?, ?, ?)";
+		$values = array($cart_id['id'], $product['id'], $product['product_qty']);
+		$this->db->query($query, $values);
+	}
 }
 
 

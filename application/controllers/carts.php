@@ -41,6 +41,17 @@ class Carts extends CI_Controller {
 		$products_in_cart = array("products" => $this->Cart->display_cart($this->session->userdata('id')));
 		$this->load->view('/carts/index', $products_in_cart);
 	}
+
+	public function update($id)
+	{
+		$product = [];
+		$product['id'] = $id;
+		$product['product_qty'] = $this->input->post('product_qty');
+		$this->Cart->update_qty($product);
+		$this->Cart->update_cart();
+		$products_in_cart = array("products" => $this->Cart->display_cart($this->session->userdata('id')));
+		$this->load->view('/carts/index', $products_in_cart);
+	}
 }
 
 //end of carts controller

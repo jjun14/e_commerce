@@ -97,13 +97,15 @@
           var string = "";
 
         $('.update').click(function(){
-          alert(this);
-          $(this).siblings('div').text(string
+          $(this).siblings('form').children('div').html("<select class='product_qty' name='product_qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option></select>"
             );
+          $
 
         });
 
-        
+        $(document).on('change', '.product_qty', function(){
+          $(this).parent().parent().submit();
+        })
 
         // Disable stripe button
         $('#stripe button').attr('disabled', 'disabled');
@@ -213,8 +215,8 @@
                 // displaying each row of cart data
                 echo 
                 "<tr><td>".$value['name']."</td><td>$".
-                $value['price']."</td><td><div class='product_qty'>".
-                $value['product_qty']."</div><button class='update btn-link'>update</button>"?>
+                $value['price']."</td><td><form action='/carts/update/".$value['id']."' method='post'><div>".
+                $value['product_qty']."</div></form><button class='update btn-link'>update</button>"?>
                 <form action= <?= '"/carts/delete/'.$value['id'].'"' ?> ><button class="trash"><span class='glyphicon glyphicon-trash'></span></button><input type="hidden" name="product_id" value=<?= '"'.$value['id'].'"' ?> ></form><?=
                 "</td><td>$".
                 ($value['price']*$value['product_qty'])."</td></tr>"; 
@@ -240,19 +242,6 @@
           </div>
         </div>
       </div>
-
-      <form action='/carts/update_cart/' method='post'>
-        <select name='quantity'>
-          <?php
-            for ($i=1;$i<20;$i++)
-            {
-              echo '<option value="'.$i.'">'.$i.'</option>';
-            }
-          ?>
-        </select>
-        <input type='submit' value='Update'>
-        <input type='hidden' name='product_id' value= '<?= $product['id']; ?>'>
-      </form>
       
       <!-- End of Item Table -->
       <!-- REMOVE BR TAGS LATER -->
@@ -273,13 +262,13 @@
             Same as Shipping
           </label>
           <br>
-            <label><span></span>First Name: <input class="billing" type="text" name="billing_first_name"></label>
-            <label><span></span>Last Name: <input class="billing" type="text" name="billing_last_name"></label>
-            <label><span></span>Address: <input class="billing" type="text" name="billing_address_1"></label>
-            <label><span></span>Address 2: <input class="billing" type="text" name="billing_address_2"></label>
-            <label><span></span>City: <input class="billing" type="text" name="billing_city"></label>
-            <label><span></span>State: <input class="billing" type="text" name="billing_state"></label>
-            <label><span></span>Zipcode: <input class="billing" type="text" name="billing_zipcode"></label>
+            <label class="billing"><span></span>First Name: <input class="billing" type="text" name="billing_first_name"></label>
+            <label class="billing"><span></span>Last Name: <input class="billing" type="text" name="billing_last_name"></label>
+            <label class="billing"><span></span>Address: <input class="billing" type="text" name="billing_address_1"></label>
+            <label class="billing"><span></span>Address 2: <input class="billing" type="text" name="billing_address_2"></label>
+            <label class="billing"><span></span>City: <input class="billing" type="text" name="billing_city"></label>
+            <label class="billing"><span></span>State: <input class="billing" type="text" name="billing_state"></label>
+            <label class="billing"><span></span>Zipcode: <input class="billing" type="text" name="billing_zipcode"></label>
             <input type="hidden" name="total" value= <?= '"'.$total.'"' ?>>
           </form>
         </div><!-- .col-md-3 -->
