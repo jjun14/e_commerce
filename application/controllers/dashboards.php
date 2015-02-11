@@ -16,17 +16,16 @@ class Dashboards extends CI_Controller {
 
   public function orders()
   {
-    $orders = $this->Order->get_all_orders(array('page_num'=>1, 'order_status'=>'show_all'));
+
+    $orders = $this->Order->get_all_orders(array('page_num'=>1, 'order_status'=>'Show All'));
     // var_dump($orders);
     // die();
     $this->load->view('/dashboards/orders', array('orders'=>$orders, 'page_num'=>1));
   }
   public function filter_orders()
   {
-    // var_dump($this->input->post());
-    // die();
     $orders = $this->Order->get_all_orders($this->input->post());
-    $this->load->view('/dashboards/orders', array('orders'=>$orders, 'page_num'=>$this->input->post('page_num')));
+    $this->load->view('/dashboards/orders', array('orders'=>$orders, 'page_num'=>$this->input->post('page_num'), 'order_status'=>$this->input->post('order_status')));
   }
 	public function products()
 	{

@@ -134,7 +134,8 @@
           </div>
           <div class="input-group col-md-2 col-md-offset-6">
             <select class="form-control" name="order_status">
-              <option value="show_all">Show All</option>
+              <option value="<?= $order_status; ?>"><?= $order_status; ?></option>
+              <option value="Show All">Show All</option>
               <option value="Order in process">Order In Process</option>
               <option value="Shipped">Shipped</option>
             </select>  
