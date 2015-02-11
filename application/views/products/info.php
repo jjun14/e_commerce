@@ -108,7 +108,8 @@
 		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number5.jpg">
   		     </div>
         </div>
-      	<div class="col-md-6">Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product... Description about the product...
+      	<div class="col-md-6">
+          <?= $product['description']; ?>
         </div>
       </div>
       <div class="row">
