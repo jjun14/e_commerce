@@ -12,10 +12,10 @@ class Products extends CI_Controller {
 	public function index()
 	{
     $categories_count = $this->Product->get_categories_count();
-    $all_products = $this->Product->get_all_products(array("page_num" => 1, "category"=>'show_all', 'sort_by'=>'Price'));
+    $all_products = $this->Product->get_all_products(array("page_num" => 1, "category"=>'Show All', 'sort_by'=>'Price'));
     // var_dump($all_products);
     // die();
-		$this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>1, 'sort_by'=>'Price', 'category'=>'show_all', 'categories_count'=>$categories_count));
+		$this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>1, 'sort_by'=>'Price', 'category'=>'Show All', 'categories_count'=>$categories_count));
 	}
   public function get_products()
   {
@@ -30,6 +30,8 @@ class Products extends CI_Controller {
     {
       $all_products = $this->Product->get_all_products($this->input->post());
     }
+    // var_dump($all_products);
+    // die();
       $this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>$this->input->post('page_num'), 'sort_by'=>$this->input->post('sort_by') ,'category'=>$this->input->post('category'),'categories_count'=>$categories_count));
   }
   public function show($id)
