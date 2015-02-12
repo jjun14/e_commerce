@@ -39,19 +39,15 @@
         });
 
         $(document).on('click', '.category', function(){
-          console.log($(this));
-          if($(this).text() == "Show All")
-          {
-            $('#category').attr('value', 'show_all');
-          }
-          else
-          {
-            $('#category').attr('value', $(this).text().split(" ")[0]);
-          }
+          console.log('here');
+          console.log($(this).parent());
+          $('#category').attr('value', $(this).text().split("(")[0]);
           $('.page_number').attr('value', 1);   
+          $('#filterForm').submit();
+          
         });
 
-        $(document).on('submit', '#filterForm', function(){
+        $(document).on('click', '#filterForm', function(){
           $.ajax({
             type: "POST",
             url: "products/get_products",
@@ -63,6 +59,7 @@
             });
           return false;
         });
+        
       });
     </script>
     <style type="text/css">
@@ -169,11 +166,11 @@
     <div class="container-fluid">
       <div class="col-md-3">
         <div id="sidebar" class="col-md-3">
-          <form action="/products/get_products/" method="post">
+          <form id="categories" action="/products/get_products/" method="post">
             <input type="text" name="search" placeholder="product name.">
             <input type="submit" value="?">
+            <input id='hidden' type="hidden" name="category" value="?">
             <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
-          </form>
           <h5>Categories</h5>
 <?php 
             foreach($categories_count as $category_count)
@@ -183,6 +180,8 @@
 ?>
           <!-- </ul> -->
           <p class='category'>Show All</p>
+          </form>
+
         </div>
       </div>
     <!-- <div id="sidebar"> -->
@@ -232,31 +231,33 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3 pages">
             <nav>
-              <ul class="pagination">
-                <li>
-                  <a disabled='true' aria-label="Previous">
-                    <span class='page-nav' aria-hidden="true">prev</span>
-                  </a>
-                </li>
-<?php           
-                $count = 1;
-                for($i = 0; $i < $all_products[1]; $i++)
-                {
-                  if($i % 15 == 0)
-                  { 
-?>
-                    <li ><a class='page_num' disabled='true'><?= $count; ?></a></li>
-<?php             
-                    $count++;
+              <form id="pagination">
+                <ul class="pagination">
+                  <li>
+                    <a disabled='true' aria-label="Previous">
+                      <span class='page-nav' aria-hidden="true">prev</span>
+                    </a>
+                  </li>
+  <?php           
+                  $count = 1;
+                  for($i = 0; $i < $all_products[1]; $i++)
+                  {
+                    if($i % 15 == 0)
+                    { 
+  ?>
+                      <li ><a class='page_num' disabled='true'><?= $count; ?></a></li>
+  <?php             
+                      $count++;
+                    }
                   }
-                }
-?>
-                <li>
-                  <a disabled='true' aria-label="Next">
-                    <span class='page-nav' aria-hidden="true">next</span>
-                  </a>
-                </li>
-              </ul>
+  ?>
+                  <li>
+                    <a aria-label="Next">
+                      <span class='page-nav' aria-hidden="true">next</span>
+                    </a>
+                  </li>
+                </ul>
+              </form>
             </nav>
           </div><!-- .col-md-6 .col-md-offset-3 -->
         </div><!-- .row -->

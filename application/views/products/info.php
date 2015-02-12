@@ -58,14 +58,14 @@
       // $('#main')
 
       $(document).on('submit','#add_to_cart', function(){
-
+        alert('submitted!');
         $.ajax({
           url: $(this).attr('action'),
           type: 'post',
-          data: $(this).serialize()
-
-        }).done(function(response){
-          $('#fade').text("Added to cart!");
+          data: $(this).serialize(),
+          datatype: "JSON"
+        }).done(function(){
+          $('#fade').append("Added to cart!");
         })
         return false;
       });
@@ -75,9 +75,7 @@
     </script>
   </head>
   <body>
-    <?php
-    var_dump($product);
-    ?>
+    
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
       <div class="container-fluid">
@@ -138,7 +136,7 @@
       </div>
       <div class="row">
         <div class="dropdown">
-          <form id = "add_to_cart" action="/carts/add_to_cart" method="post">
+          <form id="add_to_cart" action="/carts/add_to_cart" method="post">
             <select name="quantity">
             	<?php
             		for ($i=1;$i<20;$i++)
