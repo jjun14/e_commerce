@@ -65,9 +65,9 @@
           data: $(this).serialize()
 
         }).done(function(response){
-          $('#fade')
+          $('#fade').text("Added to cart!");
         })
-
+        return false;
       });
 
 
