@@ -75,6 +75,9 @@
     </script>
   </head>
   <body>
+    <?php
+    var_dump($product);
+    ?>
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
       <div class="container-fluid">
