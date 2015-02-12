@@ -85,7 +85,25 @@
 
       function validation(name, value)
       {
-        if (value == "")
+        if (name == "shipping_address_2" || name == "billing_address_2") {
+          return true;
+        }
+        else if (name == "shipping_zipcode" || name == "billing_zipcode")
+        {
+          if (value == "")
+          {
+            return false;
+          }
+          else if (isNaN(value))
+          {
+            return false;
+          }
+          else 
+          {
+            return true;
+          }
+        }
+        else if (value == "")
         {
           return false;
         }
@@ -118,7 +136,6 @@
 
         // Validate inputs on blur
         $(document).on('blur', 'input', function() { 
-            console.log($(this).val()); // get the current value of the input field.
             test = validation($(this).attr('name'), $(this).val());
 
             // Show pass or fail

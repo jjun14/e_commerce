@@ -18,9 +18,9 @@ class Product extends CI_Model
       {
         $count = $this->db->query("SELECT count(products.id) AS num_products FROM products")->row_array();
         $query = "SELECT products.id, products.name, price, url FROM products
-                  -- LEFT JOIN categories on category_id = categories.id
                   LEFT JOIN images ON products.id = images.product_id
                   LEFT JOIN image_types ON image_type_id = image_types.id
+                  WHERE image_type_id = 1
                   ORDER BY price ASC
                   LIMIT 15 OFFSET ?";
         $all_products = array($this->db->query($query, $offset)->result_array(), $count['num_products']);
@@ -123,10 +123,10 @@ class Product extends CI_Model
   }
   function get_product($id)
   {
-    $query = "SELECT products.*, url FROM products
+    $query = "SELECT products.*, url, images.image_type_id FROM products
               LEFT JOIN images ON product_id = products.id
               WHERE products.id = ?";
-    return $this->db->query($query, $id)->row_array();
+    return $this->db->query($query, $id)->result_array();
   }
   function get_similar_products($id, $category_id)
   {

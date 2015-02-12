@@ -35,11 +35,7 @@ class Products extends CI_Controller {
   public function show($id)
   {
     $product = $this->Product->get_product($id);
-    $similar = $this->Product->get_similar_products($product['id'], $product['category_id']);
-    // var_dump($product);
-    // die();
-    // var_dump($similar);
-    // var_dump($this->session->userdata);
+    $similar = $this->Product->get_similar_products($product[0]['id'], $product[0]['category_id']);
     $this->load->view('products/info', array('product'=>$product, 'similar'=>$similar));
   }
   public function delete($id)

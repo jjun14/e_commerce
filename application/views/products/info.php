@@ -57,6 +57,20 @@
       });
       // $('#main')
 
+      $(document).on('submit','#add_to_cart', function(){
+
+        $.ajax({
+          url: $(this).attr('action'),
+          type: 'post',
+          data: $(this).serialize()
+
+        }).done(function(response){
+          $('#fade')
+        })
+
+      });
+
+
     });
     </script>
   </head>
@@ -72,7 +86,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Dojo eCommerce</a>
+          <a class="navbar-brand" href="/products/index">Dojo eCommerce</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -92,13 +106,27 @@
       <h3 class="col-md-offset-1"><?= $product['name']; ?></h3>
       <div class="row">
         <div class="col-md-3 col-md-offset-1">
-          <img id="main" src="<?= $product['url']; ?>">
+          <img id="main" src="<?= $product[0]['url']; ?>">
           <div class="row">
-            <img class="secondary" src="<?= $product['url']; ?>">
-		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number2.jpg">
-		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number3.jpg">
-		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number4.jpg">
-		      	<img class="secondary" src="http://www.kidsmathgamesonline.com/images/pictures/numbers120/number5.jpg">
+
+
+
+            <?php
+            // echo "<h1>Product:</h1>";
+            // var_dump($product);
+            // echo "<h1>Similar:</h1>";
+            // var_dump($similar);
+
+            for ($i=0;$i<count($product);$i++)
+            {
+              if ($product[$i]['image_type_id'])
+              {
+                echo '<img class="secondary" src="'.$product[$i]['url'].'">';                
+              }
+            }
+
+            ?>
+
   		     </div>
         </div>
       	<div class="col-md-6">
@@ -107,7 +135,7 @@
       </div>
       <div class="row">
         <div class="dropdown">
-          <form action="/carts/add_to_cart" method="post">
+          <form id = "add_to_cart" action="/carts/add_to_cart" method="post">
             <select name="quantity">
             	<?php
             		for ($i=1;$i<20;$i++)
@@ -119,6 +147,8 @@
             <input type="submit" value="Buy">
             <input type="hidden" name="product_id" value= '<?= $product['id']; ?>'>
           </form>
+          <div id="fade">
+          </div>
     	  </div>
       </div>
       <div class="row">

@@ -52,6 +52,11 @@ class Carts extends CI_Controller {
 		$products_in_cart = array("products" => $this->Cart->display_cart($this->session->userdata('id')));
 		$this->load->view('/carts/index', $products_in_cart);
 	}
+
+	public function success()
+	{
+		$this->load->view('/carts/success');
+	}
 }
 
 //end of carts controller
