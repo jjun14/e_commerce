@@ -94,7 +94,7 @@
           {
             return false;
           }
-          else if (isNaN(value))
+          else if (isNaN(value) || value.length < 6)
           {
             return false;
           }

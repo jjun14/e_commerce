@@ -58,14 +58,14 @@
       // $('#main')
 
       $(document).on('submit','#add_to_cart', function(){
-        alert('submitted!');
         $.ajax({
           url: $(this).attr('action'),
-          type: 'post',
+          type: 'POST',
           data: $(this).serialize(),
           datatype: "JSON"
-        }).done(function(){
-          $('#fade').append("Added to cart!");
+        }).done(function(response){
+          $('#add_to_cart').after("<span style='color:green' class='text'>Added to cart!</span>");
+          $('.text').fadeOut(2000, "swing");
         })
         return false;
       });
@@ -75,7 +75,11 @@
     </script>
   </head>
   <body>
-    
+    <?php
+
+
+
+    ?>
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
       <div class="container-fluid">
@@ -92,7 +96,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/carts/index">Shopping Cart <?= "(".$this->session->userdata('cart_qty').")" ?> </a></li>
+            <li><a id="cart" href="/carts/index">Shopping Cart <?= "(".$this->session->userdata('cart_qty').")" ?> </a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -146,7 +150,7 @@
             	?>
             </select>
             <input type="submit" value="Buy">
-            <input type="hidden" name="product_id" value= '<?= $product['id']; ?>'>
+            <input type="hidden" name="product_id" value= '<?= $product[0]['id']; ?>'>
           </form>
           <div id="fade">
           </div>
