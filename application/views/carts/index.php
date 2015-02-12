@@ -175,9 +175,9 @@
             }           
         }); // End input blur function
 
-        $('#stripe button').click(function(){
-          $('#addresses').submit();
-        });
+        // $('#stripe button').click(function(){
+        //   $('#addresses').submit();
+        // });
 
       }); // End document ready function
 

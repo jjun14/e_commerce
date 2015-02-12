@@ -13,12 +13,14 @@
           if($(this).text() == 'first')
           {
             $('.page_number').attr('value', 1);
+            $('h3 span').text(1);
           }
           else if($(this).text() == 'next')
           {
             if(!($(".pagination li").length - 2 < current_page + 1))
             {
               $('.page_number').attr('value', current_page + 1);
+              $('h3 span').text(current_page + 1);
             }
           }
           else if($(this).text() == 'prev')
@@ -26,16 +28,21 @@
             if(!(current_page - 1 < 1))
             {
               $('.page_number').attr('value', current_page - 1);
+              $('h3 span').text(current_page - 1);
             }
           }
           else 
           {
             $('.page_number').attr('value', current_page);
+            $('h3 span').text(current_page);
           }
+          $('#filterForm').submit();
         });
 
-        $(document).on('click', '.page_num', function(){
+        $(document).on('click', '.page-num', function(){
           $('.page_number').attr('value', $(this).text());
+          $('h3 span').text($(this).text());
+          $('#filterForm').submit();
         });
 
         $(document).on('click', '.category', function(){
@@ -44,20 +51,38 @@
           $('#category').attr('value', $(this).text().split("(")[0]);
           $('.page_number').attr('value', 1);   
           $('#filterForm').submit();
-          
         });
 
-        $(document).on('click', '#filterForm', function(){
+        $('.page-nav').click(function(){
+          $('#filterForm').submit();
+        })
+
+        // $(document).on('click', '#filterForm', function(){
+        //   $.ajax({
+        //     type: "POST",
+        //     url: "products/get_products",
+        //     data: $(this).serialize(),
+        //     datatype: "JSON"
+        //   })
+        //     .done(function(response){
+        //       $('body').html(response);
+        //     });
+        //   return false;
+        // });
+
+        $(document).on('submit', '#filterForm', function(){
+
           $.ajax({
             type: "POST",
-            url: "products/get_products",
+            url: "/products/get_products",
             data: $(this).serialize(),
             datatype: "JSON"
           })
             .done(function(response){
-              $('body').html(response);
+              $('#partial_div').html(response);
             });
           return false;
+
         });
         
       });
@@ -190,7 +215,7 @@
       <div id="display" class="col-md-9">
         <div class="row">
           <div class="col-md-4">
-           <h3>All Products(page <?= $page_num; ?>)</h3>
+           <h3>All Products (page <span><?= $page_num; ?></span>)</h3>
           </div>
           <div class="col-md-4 col-md-offset-3">
             <form id="filterForm" action="/products/get_products/" method="post">
@@ -213,18 +238,12 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-<?php
-              foreach($all_products[0] as $product)
-              { 
-?>
-              <div class="product">
-                <a href="/products/show/<?= $product['id']; ?>"><img src="<?= $product['url']; ?>" alt="item_image"></a>
-                <p><?= $product['name']; ?></p>
-                <p><?= $product['price']; ?></p>
-              </div>
-<?php         }
-?>      
+          <div id='partial_div' class="col-md-12">
+
+            <?php
+            require('partial.php');
+            ?>
+
           </div>
         </div>
         <div class="space"></div>
@@ -245,7 +264,7 @@
                     if($i % 15 == 0)
                     { 
   ?>
-                      <li ><a class='page_num' disabled='true'><?= $count; ?></a></li>
+                      <li ><a class='page-num' disabled='true'><?= $count; ?></a></li>
   <?php             
                       $count++;
                     }

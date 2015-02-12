@@ -32,7 +32,7 @@ class Products extends CI_Controller {
     }
     // var_dump($all_products);
     // die();
-      $this->load->view('/products/display', array('all_products'=>$all_products, 'page_num'=>$this->input->post('page_num'), 'sort_by'=>$this->input->post('sort_by') ,'category'=>$this->input->post('category'),'categories_count'=>$categories_count));
+      $this->load->view('/products/partial', array('all_products'=>$all_products, 'page_num'=>$this->input->post('page_num'), 'sort_by'=>$this->input->post('sort_by') ,'category'=>$this->input->post('category'),'categories_count'=>$categories_count));
   }
   public function show($id)
   {

@@ -11,6 +11,7 @@ class Product extends CI_Model
 
   function get_all_products($post)
   {
+    // var_dump($post);
     $offset = 15 * ($post['page_num'] - 1);
     if(isset($post['sort_by']) && $post['sort_by'] == 'Price')
     {

@@ -64,7 +64,7 @@
           data: $(this).serialize(),
           datatype: "JSON"
         }).done(function(response){
-          $('#add_to_cart').after("<span style='color:green' class='text'>Added to cart!</span>");
+          $('#add_to_cart').append("<span style='color:green' class='text'>Added to cart!</span>");
           $('.text').fadeOut(2000, "swing");
         })
         return false;
