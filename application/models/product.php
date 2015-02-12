@@ -12,7 +12,7 @@ class Product extends CI_Model
   function get_all_products($post)
   {
     $offset = 15 * ($post['page_num'] - 1);
-    if($post['sort_by'] == 'Price')
+    if(isset($post['sort_by']) && $post['sort_by'] == 'Price')
     {
       if($post['category'] == "show_all")
       {
@@ -44,7 +44,7 @@ class Product extends CI_Model
         return $all_products;
       }
     }
-    else if($post['sort_by'] == 'Most Popular')
+    else if(isset($post['sort_by']) && $post['sort_by'] == 'Most Popular')
     {
       if($post['category'] == "show_all")
       {
@@ -81,29 +81,32 @@ class Product extends CI_Model
     }
     else 
     {
+      $count = $this->db->query("SELECT count(products.id) AS num_products FROM products")->row_array();
       $query = "SELECT products.*, categories.name AS category_name, SUM(product_qty) AS quantity_sold, url FROM products
                 LEFT JOIN categories ON category_id = categories.id
                 LEFT JOIN orders_have_products ON products.id = orders_have_products.product_id
                 LEFT JOIN images ON products.id = images.product_id
                 LEFT JOIN image_types ON image_type_id = images.id
                 WHERE image_type_id = 1
-                GROUP BY products.id";
-      $all_products = $this->db->query($query)->result_array();
-      // var_dump($all_products);
-      // die();
+                GROUP BY products.id
+                LIMIT 15 OFFSET ?";
+      $all_products = array($this->db->query($query, $offset)->result_array(), $count['num_products']);
       return $all_products;
     }
   }
-  public function search_by_name($post)
+  public function search($post)
   {
     $offset = 15 * ($post['page_num'] - 1);
-    $count = $this->db->query("SELECT count(products.id) AS num_products FROM products WHERE name LIKE(?)", '%'.$post['product_name'].'%')->row_array();
-    $query = "SELECT products.id, products.name, price, url FROM products
-              LEFT JOIN images ON product_id = products.id
+    $count = $this->db->query("SELECT count(products.id) AS num_products FROM products WHERE name LIKE(?)", '%'.$post['search'].'%')->row_array();
+    $query = "SELECT products.*, SUM(product_qty) AS quantity_sold, url FROM products
+              LEFT JOIN orders_have_products ON products.id = orders_have_products.product_id
+              LEFT JOIN images ON images.product_id = products.id
               WHERE name LIKE (?)
+              OR products.id LIKE (?)
+              GROUP BY products.id
               LIMIT 15 OFFSET ?";
-    $like = '%'.$post['product_name'].'%';
-    $all_products = array($this->db->query($query, array($like, $offset))->result_array(), $count['num_products']);
+    $like = '%'.$post['search'].'%';
+    $all_products = array($this->db->query($query, array($like, $like, $offset))->result_array(), $count['num_products']);
     return $all_products;
   }
   function get_categories_count()
@@ -111,6 +114,11 @@ class Product extends CI_Model
     $query = "SELECT categories.name, count(products.id) AS count FROM products
               LEFT JOIN categories ON categories.id = category_id
               GROUP BY categories.name";
+    return $this->db->query($query)->result_array();
+  }
+  function get_all_categories()
+  {
+    $query = "SELECT name FROM categories";
     return $this->db->query($query)->result_array();
   }
   function get_product($id)

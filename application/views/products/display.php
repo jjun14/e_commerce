@@ -81,7 +81,6 @@
     }
     #sidebar {
       width:90%;
-      height:270px;
       margin-left: 10px;
     }
     #categories {
@@ -171,7 +170,7 @@
       <div class="col-md-3">
         <div id="sidebar" class="col-md-3">
           <form action="/products/get_products/" method="post">
-            <input type="text" name="product_name" placeholder="product name.">
+            <input type="text" name="search" placeholder="product name.">
             <input type="submit" value="?">
             <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
           </form>

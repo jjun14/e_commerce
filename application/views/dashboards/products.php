@@ -104,9 +104,38 @@
       });
 
       $('.edit').click(function(){
-        $('#modal_title').text('Edit Product');
+        $('#modal_title').val($(this).attr('data-id'));
+        $('#modal_name').val($(this).attr('data-name'));
+        $('#modal_description').val($(this).attr('data-description'));
+        $('select option:first-child').text($(this).attr('data-category'));
         $('#modal_submit').val('Edit');
         // $('#editProductForm input').val('');
+      });
+
+      $('.page-nav').on('click', function(){
+        var current_page = parseInt($('.page_number').attr('value'));
+        if($(this).text() == 'next')
+        {
+          if(!($(".pagination li").length - 2 < current_page + 1))
+          {
+            $('.page_number').attr('value', current_page + 1);
+          }
+        }
+        else if($(this).text() == 'prev')
+        {
+          if(!(current_page - 1 < 1))
+          {
+            $('.page_number').attr('value', current_page - 1);
+          }
+        }
+        else 
+        {
+          $('.page_number').attr('value', current_page);
+        }
+      });
+
+      $(document).on('click', '.page_num', function(){
+        $('.page_number').attr('value', $(this).text());
       });
     });
     </script>
@@ -139,11 +168,13 @@
     <!-- Start Search and Filter Form -->
       <div class="row-fluid">
         <div class="col-md-4 col-md-offset-1">
-          <form action="">
+          <form action="/dashboards/filter_products" method="post">
             <div class="input-group">
                 <!-- <span class="input-group-addon glyphicon glyphicon-search"></span> -->
                 <input class="form-control" name="search" type="text" placeholder="Search...">
             </div>
+            <input type="submit" value="search">
+            <input class="page_number" type="hidden" name="page_num" value="<?= $page_num; ?>">
           </form>
         </div>
         <div class="col-md-2 col-md-offset-4 add_new">
@@ -166,8 +197,8 @@
               </tr>
             </thead>
             <tbody>
-<?php         foreach($all_products as $product)
-              { 
+<?php         foreach($all_products[0] as $product)
+              {
 ?>              <tr>
                   <td><img src="<?= $product['url']; ?>" alt="magazine_cover"></td>
                   <td><?= $product['id']; ?></td>
@@ -175,7 +206,7 @@
                   <td><?= $product['inventory']; ?></td>
                   <td><?= $product['quantity_sold']; ?></td>
                   <td>
-                      <p class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
+                      <p data-id="<?= $product['id'];?>" data-name="<?= $product['name'];?>" data-description="<?= $product['description']; ?>" data-category="<?= $product['category_name']; ?>" class="btn-link edit" data-toggle="modal" data-target="#edit_modal">edit</p>
                       <form action="">
                         <input class="btn-link" type="submit" value="delete">
                         <input type="hidden" name="id" value="<?= $product['id']; ?>">
@@ -196,18 +227,23 @@
           <nav>
             <ul class="pagination">
               <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
+                <a disabled='true' aria-label="Previous">
+                  <span class='page-nav' aria-hidden="true">prev</span>
                 </a>
               </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
+<?php         $count = 1;
+              for($i = 0; $i < intval($all_products[1]); $i++)
+              {
+                if($i % 15 == 0)
+                {
+?>                 <li><a class='page_num' disabled='true'><?= $count; ?></a></li>                          
+<?php              $count++;
+                } 
+              }
+?>            
               <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
+                <a class='page-nav' disabled='true' aria-label="Next">
+                  <span class='page-nav' aria-hidden="true">next</span>
                 </a>
               </li>
             </ul>
@@ -233,20 +269,21 @@
               <form id="editProductForm" action="" method="post">
                 <div class="form-group">
                   <label for="name">Name: </label>
-                  <input type="text" class="form-control" name="name" id="name" value="Hat">
+                  <input id="modal_name" type="text" class="form-control" name="name" id="name" value="Hat">
                 </div>
                 <div class="form-group">
                   <label for="description">Description: </label>
-                  <input type="text" class="form-control" name="description" value="Great Fit, Cool new colors">
+                  <input id="modal_description" type="text" class="form-control" name="description" value="Great Fit, Cool new colors">
                 </div>        
                 <div class="form-group">
                   <label for="categories">Categories: </label>
                   <select class="form-control" name="categories">
-<!--                     <option value="" disabled selected><?= $order['status']; ?></option> -->
-                    <option>Hats</option>
-                    <option>Mugs</option>
-                    <option>Pants</option>
-                    <option>Belt</option>
+                    <option id="#modal_category"></option>
+<?php               foreach($categories as $category)
+                    {
+?>                    <option value="<?= $category['name']; ?>"><?= $category['name']; ?></option>
+<?php               }
+?>
                   </select> 
                 </div>
                 <div class="form-group">

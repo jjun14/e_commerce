@@ -191,7 +191,7 @@
           <nav>
             <ul class="pagination">
               <li>
-                <a href="#" aria-label="Previous">
+                <a disabled='true' aria-label="Previous">
                   <span class="page-nav" aria-hidden="true">prev</span>
                 </a>
               </li>
@@ -206,7 +206,7 @@
               }
 ?>
               <li>
-                <a href="#" aria-label="Next">
+                <a disabled='true' aria-label="Next">
                   <span class="page-nav" aria-hidden="true">next</span>
                 </a>
               </li>
