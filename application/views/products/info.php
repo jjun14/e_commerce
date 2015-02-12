@@ -103,7 +103,7 @@
             	<a style="text-decoration:underline" href="/products/index">Go Back</a>
             </div>
     <!-- Start Search and Filter Form -->
-      <h3 class="col-md-offset-1"><?= $product['name']; ?></h3>
+      <h3 class="col-md-offset-1"><?= $product[0]['name']; ?></h3>
       <div class="row">
         <div class="col-md-3 col-md-offset-1">
           <img id="main" src="<?= $product[0]['url']; ?>">
@@ -130,7 +130,7 @@
   		     </div>
         </div>
       	<div class="col-md-6">
-          <?= $product['description']; ?>
+          <?= $product[0]['description']; ?>
         </div>
       </div>
       <div class="row">
