@@ -19,7 +19,7 @@ class Dashboards extends CI_Controller {
     $orders = $this->Order->get_all_orders(array('page_num'=>1, 'order_status'=>'Show All'));
     // var_dump($orders);
     // die();
-    $this->load->view('/dashboards/orders', array('orders'=>$orders, 'page_num'=>1));
+    $this->load->view('/dashboards/orders', array('orders'=>$orders, 'page_num'=>1, 'order_status'=>'Show All'));
   }
   public function filter_orders()
   {
