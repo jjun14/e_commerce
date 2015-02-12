@@ -100,6 +100,7 @@
       $('#add_new').click(function(){
         $('#modal_title').text('Add New Product');
         $('#modal_submit').val('Add');
+        $('select option:first-child').text('');
         $('#editProductForm input').val('');
       });
 

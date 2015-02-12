@@ -30,7 +30,6 @@ class Dashboards extends CI_Controller {
 	{
     $all_products = $this->Product->get_all_products(array('page_num'=>1));
     $categories = $this->Product->get_all_categories();
-    var_dump($categories);
 		$this->load->view('/dashboards/products', array('all_products'=>$all_products, 'page_num'=>1, 'categories'=>$categories));
 	}
   public function filter_products()
